@@ -42,7 +42,7 @@ Modello esperienza:
 - creare pagine:
 home (lista utenti)
 profile page (pagina profilo personale)
-user page (pagina profilo altri uteneti)
+user page (pagina profilo altri utenti)
 
 - creare componenti
 header
