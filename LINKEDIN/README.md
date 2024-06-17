@@ -38,9 +38,7 @@ Modello esperienza:
 
 ## TODO LIST:
 
-- importare react-router-dom
 - creare pagine:
-home (lista utenti)
 profile page (pagina profilo personale)
 user page (pagina profilo altri utenti)
 
