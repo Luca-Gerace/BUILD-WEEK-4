@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <h1>HOME LINKEDIN</h1>
+    <h1 className="text-3xl font-bold underline">HOME LINKEDIN</h1>
   )
 }
