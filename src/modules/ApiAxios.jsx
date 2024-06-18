@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `https://striveschool-api.herokuapp.com/api`,
+    baseURL: `https://striveschool-api.herokuapp.com/api/profile/`,
     // eslint-disable-next-line no-undef
     headers: {'Authorization': `Bearer ${process.env.STRIVESCHOOL_API_KEY}`}
   });
