@@ -52,7 +52,7 @@ export default function Footer() {
 
   return (
     <footer className="px-5 ">
-      <div className="flex gap-[125px]">
+      <div className="flex flex-wrap gap-[125px]">
         <div className="flex flex-col gap-4">
           {items1.map((item) => (
             <Link to={item.to} key={item.id}>
