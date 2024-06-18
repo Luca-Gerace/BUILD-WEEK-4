@@ -80,7 +80,7 @@ export default function Header() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <MenuItems anchor='bottom' className='border p-3'>
+                <MenuItems anchor='bottom' className='border p-3 bg-white'>
                   <MenuItem as='div' className='w-[250px]'>
                   <div className='flex flex-col me-3'>
                     <div className='flex items-center gap-2'>
