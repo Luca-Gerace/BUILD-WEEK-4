@@ -1,11 +1,22 @@
-# React + Vite
+# LINKEDIN - BUILD WEEK 4
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## LIBRERIE INSTALLATE
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+- headlessui per componenti
+`https://headlessui.com/`
+
+- Material Tailwind per componenti
+`https://www.material-tailwind.com/docs/react/accordion`
+
+- HeroIcons per icone
+`https://heroicons.com/`
+
+- React-router-dom per routing app
+
+- React-testing-library per test unitari
+
 
 
 1) GET creare la pagine con tutti i profili
