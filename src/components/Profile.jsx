@@ -10,7 +10,9 @@ export default function Profile() {
                 <img src={ImgUser} alt="img-user" className="rounded-full w-[150px]" />
             </div>
             <div className="absolute right-[15px] top-[15px] w-[40px] h-[40px] rounded-full border border-white bg-[white] flex items-center justify-center gap-4 ">
-                <CameraIcon className='w-[30px] h-[30px]' style={{ fill: '#6B9DFF' }}/>                
+                <IconButton className='rounded-full border-white' variant='outlined'>
+                    <CameraIcon className='w-[30px] h-[30px]' style={{ fill: '#6B9DFF' }}/>
+                </IconButton>                
             </div>
         </div>
         <div className='relative w-[600px] h-[150px] border border-black'>
