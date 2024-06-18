@@ -33,7 +33,7 @@ export default function Header() {
   ]
 
   return (
-    <nav className="mx-5 my-4">
+    <nav className="px-5 py-4 bg-white h-full">
       <div className="flex justify-between">
         {/* LOGO & SEARCHBAR */}
         <div className='flex items-center gap-2'>
