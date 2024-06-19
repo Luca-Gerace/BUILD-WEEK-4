@@ -6,8 +6,10 @@ import LinkedinLogo from '../assets/logo/LinkedIn_icon.svg';
 import ImgUser from '../assets/Profile/IMG_4893ee.jpg';
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Transition } from '@headlessui/react';
 
-export default function Header() {
+export default function Header({ user }) {
   const [activeItem, setActiveItem] = useState(null);
+
+  console.log(user);
 
   const handleClick = (item) => {
     setActiveItem(item);
