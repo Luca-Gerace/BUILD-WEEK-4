@@ -13,7 +13,7 @@ export default function ProfileInfo({ user }) {
             <img src={user.image} alt="profile" className="rounded-full w-[50px] min-w-[50px] h-[50px]" />
             <div className="flex flex-col">
                 <strong className="text-black">{user.name} {user.surname}</strong>
-                <p className="text-[#00000090] font-normal pt-2 pb-3">{user.title} | {user.area}</p>
+                <p className="text-[#00000090] pt-2 pb-3">{user.title} | {user.area}</p>
                 <Button className='min-w-[120px] max-w-[120px] px-4 text-[#333] flex items-center gap-2 rounded-full border-black capitalize' variant='outlined'>
                     <PaperAirplaneIcon className='w-[15px] h-[15px]' style={{ fill: '#333' }}/>
                     Messaggio

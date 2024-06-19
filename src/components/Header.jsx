@@ -38,7 +38,7 @@ export default function Header() {
         {/* LOGO & SEARCHBAR */}
         <div className='flex items-center gap-2'>
           <img src={LinkedinLogo} alt="logo" className='w-[41px]' />
-          <div className='flex w-[325px] h-[40px] rounded-md bg-[#EDF3F8]'>
+          <div className='flex w-[100px] md:w-[225px] lg:w-[325px] h-[40px] rounded-md bg-[#EDF3F8]'>
             <MagnifyingGlassIcon className='w-[25px] mx-3' />
             <input type="text" placeholder='Search' className='bg-transparent outline-none' />
           </div>
@@ -51,11 +51,11 @@ export default function Header() {
             return (
               <Link to={item.to} key={item.id}>
                 <div
-                  className={`text-[#666666] hover:text-black cursor-pointer flex flex-col items-center w-[100px] ${activeItem === item.id ? 'text-black border-b-2 border-black' : ''}`}
+                  className={`text-[#666666] hover:text-black mx-1 md:mx-0 cursor-pointer flex flex-col items-center md:w-[90px] lg:w-[100px] ${activeItem === item.id ? 'text-black border-b-2 border-black' : ''}`}
                   onClick={() => handleClick(item.id)}
                 >
                   <Icon className='w-[30px]' />
-                  <span>{item.label}</span>
+                  <span className='hidden md:inline'>{item.label}</span>
                 </div>
               </Link>
             );
@@ -64,11 +64,11 @@ export default function Header() {
           {/* INIZIO PROFILE DROPDOWN */}
           <div>
             <Menu>
-              <MenuButton className='w-[60px] ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
+              <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
                 <img src={ImgUser} alt="img-user" className='rounded-full w-[30px]' />
                 <div className='flex gap-1'>
-                  <span>Me</span>
-                  <ChevronDownIcon className='w-[20px]' />
+                  <span className='hidden md:inline'>Me</span>
+                  <ChevronDownIcon className='hidden md:inline md:w-[20px]' />
                 </div>
               </MenuButton>
 
