@@ -2,6 +2,7 @@ import Profile from "../components/Profile";
 import Sidebar from "../components/Sidebar";
 import { useEffect, useState } from 'react'
 import axios from '../modules/ApiAxios'
+import Experiences from "../components/Experiences";
 
 export default function Home() {
 
@@ -22,6 +23,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline">HOME LINKEDIN</h1>
       <Profile user={user} />
       <Sidebar />
+      <Experiences user={user} />
     </>
   )
 }

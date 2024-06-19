@@ -1,7 +1,23 @@
 import { AcademicCapIcon, PencilIcon, PlusIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import { useEffect, useState } from 'react';
+import axios from '../modules/ApiAxios';
 
-export default function Experiences() {
+export default function Experiences({ user }) {
+
+    // console.log('user', user);
+    // console.log('user._id', user._id);
+
+  // Hooks
+  const [experiences, setExperiences] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${user._id}/experiences`)
+        .then(response => setExperiences(response.data))
+        .catch(error => console.error("Error fetching users:", error));
+  }, []);
+
+console.log('PIPPO', experiences);
+
   return (
     <div className='w-1/3 mx-auto bg-white rounded-md'>
         <div className='w-5/6 mx-auto pt-4 border-b-2 border-grey-500'>
