@@ -26,9 +26,9 @@ export default function Profile({ user }) {
                         <a className='text-[#0d67bc] hover:text-[#0b5aa3]' href='*'>Informazioni di contatto</a>
                     </div>
                     <div className='flex mt-[10px]'>
-                        <Button className='rounded-full p-[7px]' color="blue">Disponibile per</Button>
-                        <Button className='rounded-full p-[7px]' variant='outlined' color="blue">Aggiungi sezione del profilo</Button>
-                        <Button className='rounded-full p-[7px]' variant='outlined' color="blue">Migliora profilo</Button>
+                        <Button className='rounded-full me-[4px] p-[7px]' color="blue">Disponibile per</Button>
+                        <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi sezione del profilo</Button>
+                        <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Migliora profilo</Button>
                         <Button className='rounded-full p-[7px]' variant='outlined'>Altro</Button>
                     </div>
                 </div>
