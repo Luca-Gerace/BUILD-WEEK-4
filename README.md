@@ -65,3 +65,29 @@ User page (pagina profilo altri utenti)
 6 ✅ sidebar con profili utenti (GET)
 7 ✅ profili utenti
 8 ✅ footer
+
+
+
+## COMANDI GIT
+
+`git status`
+fa un check delle modifiche in pending
+(rosse se non sono state aggiunte)
+(verdi se sono state aggiunte)
+
+`git add <nome-file>`
+aggiungi tutte le modifiche in pending 
+
+`git add .`
+(rosse se non sono state aggiunte)
+(verdi se sono state aggiunte)
+
+`git status`
+fa un check delle modifiche in pending
+(rosse se non sono state aggiunte)
+(verdi se sono state aggiunte)
+
+`git status`
+fa un check delle modifiche in pending
+(rosse se non sono state aggiunte)
+(verdi se sono state aggiunte)
