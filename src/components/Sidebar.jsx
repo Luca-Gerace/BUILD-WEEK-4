@@ -13,10 +13,10 @@ export default function Sidebar() {
     }, []);
 
     return (
-        <div className="m-8 flex flex-col top-50 right-50 w-[300px] bg-white h-full rounded-lg">
+        <div className="m-8 flex flex-col top-50 right-50 w-full md:w-[300px] bg-white h-full rounded-lg">
             <h2 className="font-bold text-left p-5 h-8">Altri profili simili</h2>
             <div className="overflow-y-auto overflow-x-hidden flex-grow">
-                <ul className="flex flex-col py-4 space-y-1">
+                <ul className="flex flex-col py-4">
                     {users.slice(2, 12).map(user => (
                         user.name && user.surname && user.title && user.area && <ProfileInfo key={user._id} user={user} />
                     ))}
