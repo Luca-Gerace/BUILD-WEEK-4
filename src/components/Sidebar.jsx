@@ -17,7 +17,7 @@ export default function Sidebar() {
             <h2 className="font-bold text-left p-5 h-8">Altri profili simili</h2>
             <div className="overflow-y-auto overflow-x-hidden flex-grow">
                 <ul className="flex flex-col py-4 space-y-1">
-                    {users.map(user => (
+                    {users.slice(2, 12).map(user => (
                         user.name && user.surname && user.title && user.area && <ProfileInfo key={user._id} user={user} />
                     ))}
                 </ul>
