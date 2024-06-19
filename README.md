@@ -50,11 +50,18 @@ Modello esperienza:
 ## TODO LIST:
 
 - creare pagine:
-profile page (pagina profilo personale)
-user page (pagina profilo altri utenti)
 
-- creare componenti
-header
-listaesperienze
-esperienzasingola
-footer
+Profile page / home (pagina profilo personale)
+
+User page (pagina profilo altri utenti)
+
+
+- creare componenti:
+1 ✅ header
+2 ❌ blocco profilo personale (GET)
+3 ❌ lista esperienze (GET)
+4 ❌ esperienza singola
+5 ❌ Modale per aggiunta/modifica esperienza (POST/PUT)
+6 ✅ sidebar con profili utenti (GET)
+7 ✅ profili utenti
+8 ✅ footer
