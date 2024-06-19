@@ -69,7 +69,7 @@ export default function Header({ user }) {
           <div>
             <Menu>
               <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
-                <img src={ImgUser} alt="img-user" className='rounded-full w-[30px]' />
+                <img src={user.image} alt="img-user" className='rounded-full w-[30px]' />
                 <div className='flex gap-1'>
                   <span className='hidden md:inline'>Me</span>
                   <ChevronDownIcon className='hidden md:inline md:w-[20px]' />
@@ -87,14 +87,14 @@ export default function Header({ user }) {
                 <MenuItems anchor='bottom' className='border p-3 bg-white'>
                   <MenuItem as='div' className='w-[250px]'>
                   <div className='flex flex-col me-3'>
-                    <div className='flex items-center gap-2'>
-                      <img src={ImgUser} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
+                      <div className='flex items-center gap-2'>
+                      <img src={user.image} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
                       <div className='flex flex-col'>
                         <span className='font-bold text-[20px]'>
-                          Abd Elrahman Mohamed
+                          {user.name} {user.surname}
                         </span>
                         <span>
-                          👨🏻‍💻Web Developer | 🖥️HTML, CSS, Javascript, React, Node, MongoDB, Express | Bootstrap, Tailwind
+                          {user.title}
                         </span>
                       </div>
                     </div>
