@@ -18,7 +18,7 @@ export default function Sidebar() {
             <div className="overflow-y-auto overflow-x-hidden flex-grow">
                 <ul className="flex flex-col py-4 space-y-1">
                     {users.map(user => (
-                        <ProfileInfo key={user._id}  user={user} />
+                        user.name && user.surname && user.title && user.area && <ProfileInfo key={user._id} user={user} />
                     ))}
                 </ul>
             </div>
