@@ -1,6 +1,7 @@
 import { AcademicCapIcon, PencilIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import axios from '../modules/ApiAxios';
+import AddExperience from './AddExperience';
 
 export default function Experiences({ user }) {
 
@@ -23,7 +24,7 @@ export default function Experiences({ user }) {
             <div className='flex flex-wrap justify-between'>
                 <h3 className='font-bold text-lg'>Esperienza</h3>
                 <div className='flex flex-wrap'>
-                    <PlusIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
+                    <AddExperience />
                     <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
                 </div>
             </div>
