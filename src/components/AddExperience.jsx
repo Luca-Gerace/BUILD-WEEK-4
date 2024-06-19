@@ -34,7 +34,7 @@ export default function AddExperience() {
                     'block px-4 py-2 text-sm',
                   )}
                 >
-                  Account settings
+                  Aggiungi esperienza lavorativa
                 </a>
               )}
             </MenuItem>
@@ -47,38 +47,10 @@ export default function AddExperience() {
                     'block px-4 py-2 text-sm',
                   )}
                 >
-                  Support
+                  Aggiungi pausa lavorativa
                 </a>
               )}
             </MenuItem>
-            <MenuItem>
-              {({ focus }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm',
-                  )}
-                >
-                  License
-                </a>
-              )}
-            </MenuItem>
-            <form method="POST" action="#">
-              <MenuItem>
-                {({ focus }) => (
-                  <button
-                    type="submit"
-                    className={classNames(
-                      focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full px-4 py-2 text-left text-sm',
-                    )}
-                  >
-                    Sign out
-                  </button>
-                )}
-              </MenuItem>
-            </form>
           </div>
         </MenuItems>
       </Transition>
