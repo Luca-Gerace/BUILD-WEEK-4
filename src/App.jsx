@@ -6,7 +6,7 @@ import Error from './pages/Error'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import ApiAxios from './modules/ApiAxios'
 
 export default function App() {
 
@@ -18,7 +18,7 @@ export default function App() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    axios.get(`${userId}`)
+    ApiAxios.get(`${userId}`)
         .then(response => setUser(response.data))
         .catch(error => console.error("Error fetching users:", error));
   }, []);

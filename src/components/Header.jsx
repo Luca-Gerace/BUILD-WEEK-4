@@ -9,11 +9,13 @@ import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Transition } from
 export default function Header({ user }) {
   const [activeItem, setActiveItem] = useState(null);
 
-  console.log(user);
+  
 
   const handleClick = (item) => {
     setActiveItem(item);
   };
+
+  console.log(user);
 
   const navItems = [
     { id: 'home', icon: HomeIcon, label: 'Home', to: '/' },
