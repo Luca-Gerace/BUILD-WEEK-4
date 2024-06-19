@@ -16,7 +16,6 @@ export default function Experiences({ user }) {
         .catch(error => console.error("Error fetching users:", error));
   }, []);
 
-console.log('PIPPO', experiences);
 
   return (
     <div className='w-1/3 mx-auto bg-white rounded-md'>
