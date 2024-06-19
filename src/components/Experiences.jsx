@@ -19,7 +19,7 @@ export default function Experiences({ user }) {
 
 
   return (
-    <div className='w-1/3 mx-auto bg-white rounded-md'>
+    <div className='w-full mx-auto bg-white rounded-md'>
         <div className='w-5/6 mx-auto pt-4 border-b-2 border-grey-500'>
             <div className='flex flex-wrap justify-between'>
                 <h3 className='font-bold text-lg'>Esperienza</h3>

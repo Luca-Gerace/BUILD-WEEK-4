@@ -5,8 +5,8 @@ import { Button } from "@material-tailwind/react";
 
 export default function Profile({ user }) {
   return (
-    <div className=' mt-[20px] w-[600px] h-[350px] border border-black'>
-        <div className='relative w-[600px] h-[150px] border bg-[#0d67bc] border-black'>
+    <div className='w-full h-[350px] border border-black'>
+        <div className='relative h-[150px] border bg-[#0d67bc] border-black'>
             <div className='absolute border-4 top-[50px] left-[10px] border-white rounded-full w-[151px] h-[151px]'>
                 <img src={user.image} alt="image-user" className="rounded-full w-[150px]" />
             </div>
@@ -16,7 +16,7 @@ export default function Profile({ user }) {
                 </IconButton>                
             </div>
         </div>
-        <div className='relative w-[600px] h-[200px] border border-black'>
+        <div className='relative h-[200px] border border-black'>
             <div className='flex'>
                 <div className='mt-[60px] ms-[15px] float-start'>
                     <h1 className='text-2xl'>{user.name} {user.surname}</h1>
