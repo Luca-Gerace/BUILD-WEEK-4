@@ -52,7 +52,7 @@ export default function AddingExperienceModal({ user, open, handleOpen }) {
     })
     .catch(error => console.error("Error adding experience:", error));
 
-    console.log(newExperience);
+    handleOpen(false);
   }
 
   return (

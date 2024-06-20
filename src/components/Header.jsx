@@ -14,7 +14,6 @@ export default function Header({ user }) {
     setActiveItem(item);
   };
 
-  console.log(user);
 
   const navItems = [
     { id: 'home', icon: HomeIcon, label: 'Home', to: '/' },

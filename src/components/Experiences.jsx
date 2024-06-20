@@ -10,10 +10,28 @@ export default function Experiences({ user }) {
   const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
-    axios.get(`${user._id}/experiences`)
-        .then(response => setExperiences(response.data))
-        .catch(error => console.error("Error fetching users:", error));
-  }, [user._id]);
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${user._id}/experiences`);
+        const data = await response.data;
+
+        console.log(data)
+        ;
+      } catch (error) {
+        console.error("Error fetching users:", error)
+      }
+    }
+    fetchData()
+    
+    // axios.get(`${user._id}/experiences`)
+    //     .then(response => setExperiences(response.data))
+    //     // .then(console.log('utente', user.name))
+    //     .then(console.log('lista esperienze', experiences))
+    //     .catch(error => console.error("Error fetching users:", error));
+
+  }, [experiences]);
+
 
   return (
     <div className='w-full px-6 py-4 bg-white rounded-lg'>
