@@ -6,8 +6,8 @@ export default function Profile({ user }) {
   return (
     <div className='w-full h-[350px]'>
         <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
-            <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full w-[151px] h-[151px]'>
-                <img src={user.image} alt="image-user" className="rounded-full w-[150px]" />
+            <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full'>
+                <img src={user.image} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
             </div>
             <div className="absolute right-[25px] top-[25px] w-[40px] h-[40px] rounded-full border border-white bg-[white] flex items-center justify-center gap-4 ">
                 <IconButton className='rounded-full border-white' variant='outlined'>

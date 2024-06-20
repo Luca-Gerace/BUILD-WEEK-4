@@ -38,8 +38,8 @@ export default function Experiences({ user }) {
 };
 
   return (
-    <div className='w-[600px] mx-auto bg-white rounded-md'>
-        <div className='w-5/6 mx-auto pt-4 border-b-2 border-grey-500'>
+    <div className='w-full px-6 py-4 bg-white rounded-lg'>
+        <div className='mx-auto pt-4 border-b-2 border-grey-500'>
             <div className='flex flex-wrap justify-between'>
                 <h3 className='font-bold text-lg'>Esperienza</h3>
                 <div className='flex flex-wrap'>

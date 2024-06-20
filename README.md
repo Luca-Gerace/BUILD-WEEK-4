@@ -40,7 +40,7 @@ Modello esperienza:
     "startDate": "2019-06-16", 1
     "endDate": "2019-06-16", //null se ancora in corso
     "description": "Doing stuff",
-    "area": "Berlin",
+    "area": "Berlin",  // sembra non esistere questa coppia
 }
 
 3) GET creare una pagina dinamica con il singolo profilo utente 
