@@ -1,8 +1,14 @@
 import { CameraIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { IconButton } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
+import { useState } from 'react';
+import ModalProfile from './ModalProfile';
 
-export default function Profile({ user }) {
+export default function Profile({setUser, user }) {
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen((cur) => !cur);
+
   return (
     <div className='w-full h-[350px]'>
         <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
@@ -14,9 +20,10 @@ export default function Profile({ user }) {
                     <CameraIcon className='w-[30px] h-[30px]' style={{ fill: '#6B9DFF' }}/>
                 </IconButton>                
             </div>
-            <div className="absolute right-[25px] bottom-[-50px] w-[40px] h-[40px] bg-[white] flex items-center justify-center gap-4 ">
+            <div onClick={ handleOpen}
+             className="absolute right-[25px] bottom-[-50px] w-[40px] h-[40px] bg-[white] flex items-center justify-center gap-4 ">
                 <IconButton className='border-0' variant='outlined'>
-                    <PencilIcon  className='w-[30px] h-[30px]' />
+                    <PencilIcon   className='w-[30px] h-[30px]' />
                 </IconButton>                
             </div>
         </div>
@@ -38,6 +45,7 @@ export default function Profile({ user }) {
                 </div>
             </div>
         </div>
+        {open && <ModalProfile setUser={setUser} user={user} open={open} handleOpen={handleOpen} />}
     </div>
   )
 }

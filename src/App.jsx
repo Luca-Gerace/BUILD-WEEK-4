@@ -28,7 +28,7 @@ export default function App() {
       <Header user={user}/>
         <section className='w-full lg:w-[1024px] m-auto py-6 px-6 lg:px-0'>
           <Routes>
-              <Route path='/' element={<Home user={user} />}/>
+              <Route path='/' element={<Home user={user} setUser={setUser} />}/>
               <Route path='/user/:id' element={<UserPage />}/>
               <Route path='*' element={<Error />}/>
           </Routes>
