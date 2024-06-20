@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import axios from "../modules/ApiAxios";
 
-export default function AddingExperienceModal({ user, open, handleOpen }) {
+export default function AddingExperienceModal({ setExperiences, experiences, user, open, handleOpen }) {
 
   // Hooks
   const [inputRole, setInputRole] = useState('')
@@ -19,7 +19,6 @@ export default function AddingExperienceModal({ user, open, handleOpen }) {
   const [inputEndDate, setInputEndDate] = useState('')
   const [inputDescription, setInputDescription] = useState('')
   const [inputArea, setInputArea] = useState('')
-  const [experiences, setExperiences] = useState([])
   
   // useEffect(() => {
   //   const newExperience = {

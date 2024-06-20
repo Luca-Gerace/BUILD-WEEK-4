@@ -7,7 +7,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function AddExperience({ user }) {
+export default function AddExperience({setExperiences, experiences, user }) {
 
   const [open, setOpen] = useState(false);
 
@@ -63,7 +63,7 @@ export default function AddExperience({ user }) {
           </MenuItems>
         </Transition>
       </Menu>
-      {open && <AddingExperienceModal user={user} open={open} handleOpen={handleOpen} />}
+      {open && <AddingExperienceModal setExperiences={setExperiences} experiences={experiences} user={user} open={open} handleOpen={handleOpen} />}
     </>
   )
 }

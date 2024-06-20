@@ -22,14 +22,8 @@ export default function Experiences({ user }) {
       }
     }
     fetchData()
-    
-    // axios.get(`${user._id}/experiences`)
-    //     .then(response => setExperiences(response.data))
-    //     // .then(console.log('utente', user.name))
-    //     .then(console.log('lista esperienze', experiences))
-    //     .catch(error => console.error("Error fetching users:", error));
 
-  }, [user._id]);
+  }, [experiences, user._id]);
 
 
 
@@ -40,7 +34,7 @@ export default function Experiences({ user }) {
             <div className='flex flex-wrap justify-between'>
                 <h3 className='font-bold text-lg'>Esperienza</h3>
                 <div className='flex flex-wrap'>
-                    <AddExperience user={user} />
+                    <AddExperience setExperiences={setExperiences} experiences={experiences} user={user} />
                     <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
                 </div>
             </div>
