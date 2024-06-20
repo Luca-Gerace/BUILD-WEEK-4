@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import axios from "../modules/ApiAxios";
 
-export default function AddingExperienceModal({ setExperiences, experiences, user, open, handleOpen }) {
+export default function AddingExperienceModal({ setExperiences, experiences, add, setAdd, user, open, handleOpen }) {
 
   // Hooks
   const [inputRole, setInputRole] = useState('')
@@ -48,6 +48,7 @@ export default function AddingExperienceModal({ setExperiences, experiences, use
     axios.post(`${user._id}/experiences`, newExperience)
     .then(response => {
         setExperiences([...experiences, response.data]);
+        setAdd(!add)
     })
     .catch(error => console.error("Error adding experience:", error));
 

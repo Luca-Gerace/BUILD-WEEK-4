@@ -8,6 +8,7 @@ export default function Experiences({ user }) {
 
   // Hooks
   const [experiences, setExperiences] = useState([]);
+  const [add, setAdd] = useState(false);
 
   useEffect(() => {
 
@@ -23,7 +24,7 @@ export default function Experiences({ user }) {
     }
     fetchData()
 
-  }, [experiences, user._id]);
+  }, [add, user._id]);
 
 
 
@@ -34,7 +35,7 @@ export default function Experiences({ user }) {
             <div className='flex flex-wrap justify-between'>
                 <h3 className='font-bold text-lg'>Esperienza</h3>
                 <div className='flex flex-wrap'>
-                    <AddExperience setExperiences={setExperiences} experiences={experiences} user={user} />
+                    <AddExperience setExperiences={setExperiences} experiences={experiences} add={add} setAdd={setAdd} user={user} />
                     <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
                 </div>
             </div>
