@@ -3,7 +3,6 @@
 
 ## LIBRERIE INSTALLATE
 
-
 - headlessui per componenti
 `https://headlessui.com/`
 
@@ -16,6 +15,7 @@
 - React-router-dom per routing app
 
 - React-testing-library per test unitari
+
 
 
 
@@ -50,11 +50,8 @@ Modello esperienza:
 ## TODO LIST:
 
 - creare pagine:
-
-Profile page / home (pagina profilo personale)
-
-User page (pagina profilo altri utenti)
-
+1 ✅ Personal Profile page / home
+2 ❌ User page (pagina profilo altri utenti)
 
 - creare componenti:
 1 ✅ header
@@ -82,10 +79,10 @@ aggiungi (perpari per il commit) il file in pending
 aggiungi (perpari per il commit) tutti i file in pending 
 
 `git checkout <nome-file>`
-rimuovi (SOLO su file preesistenti, non funziona con i nuovi file) il file in pending 
+rimuovi (SOLO per file preesistenti, non rimuove i nuovi file) il file in pending 
 
 `git checkout .`
-rimuovi (SOLO su file preesistenti, non funziona con i nuovi file) tutti i file in pending 
+rimuovi (SOLO per file preesistenti, non rimuove i nuovi file) tutti i file in pending 
 
 `git commit -m "messaggio"`
 Committi le modifiche con il messaggio inserito tra ""
@@ -94,20 +91,21 @@ Committi le modifiche con il messaggio inserito tra ""
 Pushi le modifiche committate in precedenza
 
 `git pull`
-Pulli le modifiche fatte sul branch master
+Pulli le modifiche fatte sul branch corrente
 
 `git stash`
-Salvi le modifiche ai file GIA' ESISTENTI in una specie di cache locale del tuo IDE (es. VS CODE)
-E' molto utile se hai modifiche in pending e devi prima fare un pull di modifiche fatte da colleghi
+Salvi le modifiche ai file GIA' ESISTENTI* in una specie di cache locale del tuo IDE (es. VS CODE)
+E' molto utile se hai modifiche in pending e devi prima fare un pull delle modifiche fatte da colleghi
+* salva nella cache solo file preesistenti, i nuovi file vengono ignorati
 
 `git stash pop`
 Recuperi le modifiche che hai precedentemente salvato nella cache locale del tuo IDE
 
 `git checkout -b <nome-branch>`
-Crei un nuovo branch a partire dal branch attuale
+Crei un nuovo branch a partire dal branch dove ti trovi attualmente
 
 `git fetch`
-Ti fetchi tutti i branch remoti creati sul progetto
+Ti fetchi tutti i branch remoti creati sul progetto (restitiuisce ua lista di branch remoti)
 
 `git checkout <nome-branch>`
 Ti sposti su un branch già esistente

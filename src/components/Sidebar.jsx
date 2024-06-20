@@ -13,7 +13,7 @@ export default function Sidebar() {
     }, []);
 
     return (
-        <div className="flex flex-col w-full md:w-[300px] bg-white h-full rounded-lg">
+        <div className="lg:w-1/3 flex flex-col w-full bg-white h-full rounded-lg">
             <h2 className="font-bold text-left p-5 h-8">Altri profili simili</h2>
             <div className="overflow-y-auto overflow-x-hidden flex-grow">
                 <ul className="flex flex-col py-4">

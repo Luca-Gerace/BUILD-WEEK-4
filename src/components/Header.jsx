@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HomeIcon, UsersIcon, BriefcaseIcon, ChatBubbleOvalLeftEllipsisIcon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import MagnifyingGlassIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon';
 import LinkedinLogo from '../assets/logo/LinkedIn_icon.svg';
-import ImgUser from '../assets/Profile/IMG_4893ee.jpg';
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Transition } from '@headlessui/react';
 
 export default function Header({ user }) {
@@ -38,7 +37,7 @@ export default function Header({ user }) {
 
   return (
     <nav className="px-5 py-4 bg-white h-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between w-full lg:w-[1024px] m-auto">
         {/* LOGO & SEARCHBAR */}
         <div className='flex items-center gap-2'>
           <img src={LinkedinLogo} alt="logo" className='w-[41px]' />

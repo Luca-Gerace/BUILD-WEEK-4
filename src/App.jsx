@@ -21,16 +21,18 @@ export default function App() {
     ApiAxios.get(`${userId}`)
         .then(response => setUser(response.data))
         .catch(error => console.error("Error fetching users:", error));
-  }, []);
+  }, [userId]);
 
   return (
     <Router>
       <Header user={user}/>
-      <Routes>
-        <Route path='/' element={<Home user={user} />}/>
-        <Route path='/user/:id' element={<UserPage />}/>
-        <Route path='*' element={<Error />}/>
-      </Routes>
+        <section className='w-full lg:w-[1024px] m-auto py-6 px-6 lg:px-0'>
+          <Routes>
+              <Route path='/' element={<Home user={user} />}/>
+              <Route path='/user/:id' element={<UserPage />}/>
+              <Route path='*' element={<Error />}/>
+          </Routes>
+        </section>
       <Footer /> 
     </Router>
   )
