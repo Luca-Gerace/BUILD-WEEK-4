@@ -47,7 +47,7 @@ import {
     
       axios.get()
         .then(response => {
-          return axios.put('', updatedUser);  // URL vuoto se stai usando l'endpoint di base
+          return axios.put('', updatedUser);
         })
         .then(response => {
           setUser(response.data);
