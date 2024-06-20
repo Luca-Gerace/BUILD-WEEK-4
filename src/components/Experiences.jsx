@@ -33,6 +33,8 @@ export default function Experiences({ user }) {
   }, [experiences]);
 
 
+  
+
   return (
     <div className='w-full px-6 py-4 bg-white rounded-lg'>
         <div className='mx-auto pt-4 border-b-2 border-grey-500'>
