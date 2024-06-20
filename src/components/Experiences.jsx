@@ -12,12 +12,11 @@ export default function Experiences({ user }) {
   useEffect(() => {
 
     const fetchData = async () => {
+      if (!user._id) return;
       try {
         const response = await axios.get(`${user._id}/experiences`);
-        const data = await response.data;
+        setExperiences(response.data);
 
-        console.log(data)
-        ;
       } catch (error) {
         console.error("Error fetching users:", error)
       }
@@ -30,10 +29,10 @@ export default function Experiences({ user }) {
     //     .then(console.log('lista esperienze', experiences))
     //     .catch(error => console.error("Error fetching users:", error));
 
-  }, [experiences]);
+  }, [user._id]);
 
 
-  
+
 
   return (
     <div className='w-full px-6 py-4 bg-white rounded-lg'>
