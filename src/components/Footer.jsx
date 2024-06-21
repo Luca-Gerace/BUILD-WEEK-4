@@ -2,7 +2,6 @@ import { Field, Label, Select } from "@headlessui/react";
 import { ShieldCheckIcon } from "@heroicons/react/24/solid";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -51,32 +50,32 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="px-5 ">
-      <div className="flex flex-wrap gap-[125px]">
-        <div className="flex flex-col gap-4">
+    <footer className="p-5">
+      <div className="w-full lg:w-[1024px] m-auto flex justify-between">
+        <div className="flex flex-col gap-2">
           {items1.map((item) => (
             <Link to={item.to} key={item.id}>
-              <span className="text-[#666666] hover:underline">
+              <span className="text-[#666666] text-[12px] hover:underline">
                 {item.label}
               </span>
             </Link>
           ))}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {items2.map((item) => (
             <Link to={item.to} key={item.id}>
-              <span className="text-[#666666] hover:underline">
+              <span className="text-[#666666] text-[12px] hover:underline">
                 {item.label}
               </span>
             </Link>
           ))}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {items3.map((item) => (
             <Link to={item.to} key={item.id}>
-              <span className="text-[#666666] hover:underline">
+              <span className="text-[#666666] text-[12px] hover:underline">
                 {item.label}
               </span>
             </Link>
@@ -117,7 +116,7 @@ export default function Footer() {
         </Field>
       </div>
       
-      <div className="mt-[30px]">
+      <div className="mt-[30px] w-full lg:w-[1024px] m-auto">
         LinkedIn Corporation © 2024
       </div>
     </footer>
