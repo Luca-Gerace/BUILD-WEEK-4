@@ -1,4 +1,3 @@
-import { PencilIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import axios from '../../modules/ApiAxios';
 import AddExperience from './AddExperience';
@@ -38,7 +37,6 @@ export default function Experiences({ user }) {
                   !id && 
                   <div className='flex flex-wrap'>
                       <AddExperience setExperiences={setExperiences} experiences={experiences} add={add} setAdd={setAdd} user={user} />
-                      <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
                   </div>
                 }
             </div>

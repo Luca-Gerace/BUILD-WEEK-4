@@ -10,13 +10,13 @@ import {
   import { useState } from "react";
   import axios from "../../modules/ApiAxios";
   
-  export default function ModalProfile({ user, setUser, open, handleOpen }) {
+  export default function UpdateProfileModal({ user, setUser, open, handleOpen }) {
   
     // Hooks
-    const [inputName, setInputName] = useState('')
-    const [inputSurname, setInputSurname] = useState('')
-    const [inputTitle, setInputTitle] = useState('')
-    const [inputArea, setInputArea] = useState('') 
+    const [inputName, setInputName] = useState(user.name || "");
+    const [inputSurname, setInputSurname] = useState(user.surname || "");
+    const [inputTitle, setInputTitle] = useState(user.title || "");
+    const [inputArea, setInputArea] = useState(user.area || "");
   
     const handleCreate = () => {
       const updatedUser = {

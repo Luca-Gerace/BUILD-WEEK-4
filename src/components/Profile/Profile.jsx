@@ -2,7 +2,7 @@ import { CameraIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { IconButton } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 import { useState } from 'react';
-import ModalProfile from './ModalProfile';
+import UpdateProfileModal from './UpdateProfileModal';
 import UpdateImageModal from './UpdateImageModal';
 import { useParams } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ export default function Profile({ setUser, user }) {
                     </div>
                 </div>
             </div>
-            {!id && openProfileModal && <ModalProfile user={user} setUser={setUser} open={openProfileModal} handleOpen={handleOpenProfileModal} />}
+            {!id && openProfileModal && <UpdateProfileModal user={user} setUser={setUser} open={openProfileModal} handleOpen={handleOpenProfileModal} />}
             {!id && openImageModal && <UpdateImageModal user={user} setUser={setUser} open={openImageModal} handleOpen={handleOpenImageModal} />}
         </div>
     )

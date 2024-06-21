@@ -1,5 +1,5 @@
 
-import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { BuildingOffice2Icon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
@@ -38,7 +38,10 @@ export default function SingleExperience({ experience }) {
           </div>
         </div>
         { !id && 
-          <>a b c</>
+          <div className='flex flex-col gap-6 pt-3'>
+            <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
+            <TrashIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
+          </div>
         }
       </div>
     </>
