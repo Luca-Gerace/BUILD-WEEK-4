@@ -1,12 +1,16 @@
-
 import { BuildingOffice2Icon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 import axios from "../../modules/ApiAxios";
+import UpdateExperienceModal from './UpdateExperienceModal';
+import { useState } from 'react';
 
-export default function SingleExperience({ experience, user, add, setAdd }) {
-
+export default function SingleExperience({ experience, user, setExperiences, add, setAdd }) {
   const { id } = useParams(); // se id è true ci troviamo nella pagina profilo di altri utenti e non renderizziamo i bottoni per la modifica
+
+  // Trigger modale
+  const [open, setOpen] = useState(false);
+  const updateExperience = () => setOpen((cur) => !cur);
 
   // Funzione per formattare la data
   const formatDateTime = (dateTimeString) => {
@@ -18,7 +22,7 @@ export default function SingleExperience({ experience, user, add, setAdd }) {
     axios.delete(`${user._id}/experiences/${experience._id}`)
       .then(response => {
         console.log('Esperienza cancellata con successo:', response.data);
-        setAdd(!add)
+        setAdd(!add);
       })
       .catch(error => {
         console.error('Errore durante la cancellazione dell esperienza:', error);
@@ -49,13 +53,24 @@ export default function SingleExperience({ experience, user, add, setAdd }) {
             <p className=''>{experience.description}</p>
           </div>
         </div>
-        { !id && 
-          <div className='flex flex-col gap-6 pt-3'>
-            <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' />
-            <TrashIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' onClick={deleteExperience}/>
-          </div>
-        }
+        {!id && (
+          <>
+            <div className='flex flex-col gap-6 pt-3'>
+              <PencilIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' onClick={updateExperience} />
+              <TrashIcon className='h-6 w-6 mx-2 text-{rgb(102,102,102)} cursor-pointer' onClick={deleteExperience}/>
+            </div>
+            <UpdateExperienceModal
+              experience={experience}
+              user={user}
+              setExperiences={setExperiences}  // Passa setExperiences a UpdateExperienceModal
+              open={open}
+              add={add}
+              setAdd={setAdd}
+              handleOpen={updateExperience}
+            />
+          </>
+        )}
       </div>
     </>
-  )
+  );
 }

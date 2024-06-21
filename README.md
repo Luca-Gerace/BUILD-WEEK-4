@@ -57,7 +57,7 @@ Modello esperienza:
 1 ✅ header
 2 ✅ blocco profilo personale (GET/PUT)
 3 ✅ lista esperienze
-4 ❌ esperienza singola (✅GET/✅POST/PUT/DELETE)
+4 ❌ esperienza singola (✅GET/✅POST/PUT/✅DELETE)
 5 ❌ Modale per aggiunta/modifica esperienza
 6 ✅ sidebar con profili utenti (GET)
 7 ✅ profili utenti
