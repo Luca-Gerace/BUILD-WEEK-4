@@ -20,7 +20,7 @@ export default function SingleExperience({ experience }) {
           <div className='w-12 h-12 rounded-full'>
             {
               experience.image ? 
-              (<img src={experience.image} alt={experience.company} />)
+              (<img className='w-12 h-12 rounded-full bg-[#ddd]' src={experience.image} alt={experience.company} />)
               :
               (
                 <div className='flex justify-center items-center w-12 h-12 rounded-full bg-[#ddd]'>
