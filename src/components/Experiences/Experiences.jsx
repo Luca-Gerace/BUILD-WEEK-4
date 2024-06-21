@@ -48,7 +48,7 @@ export default function Experiences({ user }) {
               <SingleExperience
                 key={index}
                 experience={experience}
-                setExperiences={setExperiences}  // Passa setExperiences a SingleExperience
+                setExperiences={setExperiences}
                 user={user}
                 add={add}
                 setAdd={setAdd}
