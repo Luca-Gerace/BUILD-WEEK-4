@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import axios from "../../modules/ApiAxios";
 
-export default function AddingExperienceModal({ setExperiences, experiences, add, setAdd, user, open, handleOpen }) {
+export default function AddExperienceModal({ setExperiences, experiences, add, setAdd, user, open, handleOpen }) {
 
   // Hooks
   const [inputRole, setInputRole] = useState('');
@@ -27,37 +27,43 @@ export default function AddingExperienceModal({ setExperiences, experiences, add
       role: inputRole,
       company: inputCompany,
       startDate: inputStartDate,
-      endDate: inputEndDate, //null se ancora in corso
+      endDate: inputEndDate,
       description: inputDescription,
       area: inputArea,
-    }
-
+    };
+  
     // Chiamata POST per creare la nuova esperienza
     axios.post(`${user._id}/experiences`, newExperience)
       .then(response => {
         const createdExperience = response.data;
+  
+        // Aggiorna lo stato delle esperienze con la nuova esperienza
         setExperiences([...experiences, createdExperience]);
-
+  
         // Se c'è un'immagine da caricare
         if (inputImage) {
           const formData = new FormData();
           formData.append('experience', inputImage);
-
+  
           // Chiamata POST per caricare l'immagine
           axios.post(`${user._id}/experiences/${createdExperience._id}/picture`, formData)
             .then(response => {
-              // Aggiorna l'esperienza con l'immagine
-              setExperiences(experiences.map(exp => exp._id === createdExperience._id ? { ...createdExperience, picture: response.data.picture } : exp));
+              // Aggiorna l'esperienza con l'immagine nel modo corretto
+              const updatedExperiences = experiences.map(exp =>
+                exp._id === createdExperience._id ? { ...createdExperience, picture: response.data.picture } : exp
+              );
+              setExperiences(updatedExperiences);
             })
             .catch(error => console.error("Error uploading image:", error));
         }
-
+  
+        // Resetta lo stato per il prossimo aggiornamento
         setAdd(!add);
         handleOpen(false);
       })
       .catch(error => console.error("Error adding experience:", error));
-  }
-
+  };
+  
   return (
     <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
       <DialogHeader className="justify-between">

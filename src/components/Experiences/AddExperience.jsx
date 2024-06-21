@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { PlusIcon } from '@heroicons/react/24/outline'
-import AddingExperienceModal from './AddingExperienceModal'
+import AddExperienceModal from './AddExperienceModal'
 import { useState } from 'react';
 
 function classNames(...classes) {
@@ -63,7 +63,7 @@ export default function AddExperience({setExperiences, experiences, add, setAdd,
           </MenuItems>
         </Transition>
       </Menu>
-      {open && <AddingExperienceModal setExperiences={setExperiences} experiences={experiences} add={add} setAdd={setAdd} user={user} open={open} handleOpen={handleOpen} />}
+      {open && <AddExperienceModal setExperiences={setExperiences} experiences={experiences} add={add} setAdd={setAdd} user={user} open={open} handleOpen={handleOpen} />}
     </>
   )
 }
