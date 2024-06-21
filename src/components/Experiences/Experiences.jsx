@@ -3,6 +3,7 @@ import axios from '../../modules/ApiAxios';
 import AddExperience from './AddExperience';
 import SingleExperience from './SingleExperience';
 import { useParams } from 'react-router-dom';
+import SingleExperienceSkeleton from './SingleExperienceSkeleton';
 
 export default function Experiences({ user }) {
   const { id } = useParams(); // se id è true ci troviamo nella pagina profilo di altri utenti e non renderizziamo i bottoni per la modifica
@@ -10,13 +11,16 @@ export default function Experiences({ user }) {
   // Hooks
   const [experiences, setExperiences] = useState([]);
   const [add, setAdd] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       if (!user._id) return;
       try {
         const response = await axios.get(`${user._id}/experiences`);
         setExperiences(response.data.reverse());
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -35,16 +39,22 @@ export default function Experiences({ user }) {
             </div>
           )}
         </div>
-        {experiences.map((experience, index) => (
-          <SingleExperience
-            key={index}
-            experience={experience}
-            setExperiences={setExperiences}  // Passa setExperiences a SingleExperience
-            user={user}
-            add={add}
-            setAdd={setAdd}
-          />
-        ))}
+        {loading ? (
+            Array.from({ length: 2 }, (el, index) => (
+                <SingleExperienceSkeleton key={index} />
+            ))
+        ) : (
+            experiences.map((experience, index) => (
+              <SingleExperience
+                key={index}
+                experience={experience}
+                setExperiences={setExperiences}  // Passa setExperiences a SingleExperience
+                user={user}
+                add={add}
+                setAdd={setAdd}
+              />
+            ))
+        )}
       </div>
     </div>
   );
