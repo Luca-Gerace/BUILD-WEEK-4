@@ -80,7 +80,7 @@ import {
                 }}
               />
             </div>
-            <Button onClick={handleCreate} className="mt-6" fullWidth>
+            <Button onClick={handleCreate} className='mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
               Conferma
             </Button>
           </form>

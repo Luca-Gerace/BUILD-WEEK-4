@@ -33,6 +33,7 @@ import {
       }
     
       axios.get()
+        // eslint-disable-next-line no-unused-vars
         .then(response => {
           return axios.put('', updatedUser);
           
@@ -132,8 +133,8 @@ import {
               }}
             />                                         
           </div>
-          <Button onClick={handleCreate} className="mt-6" fullWidth>
-            Conferma
+          <Button onClick={handleCreate} className='mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
+              Conferma
           </Button>
         </form>
         </DialogBody>
