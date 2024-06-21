@@ -51,14 +51,14 @@ Modello esperienza:
 
 - creare pagine:
 1 ✅ Personal Profile page / home
-2 ❌ User page (pagina profilo altri utenti)
+2 ✅ User page (pagina profilo altri utenti)
 
 - creare componenti:
 1 ✅ header
 2 ✅ blocco profilo personale (GET/PUT)
 3 ✅ lista esperienze
-4 ❌ esperienza singola (✅GET/✅POST/PUT/✅DELETE)
-5 ❌ Modale per aggiunta/modifica esperienza
+4 ✅ esperienza singola
+5 ✅ Modale per aggiunta/modifica esperienza
 6 ✅ sidebar con profili utenti (GET)
 7 ✅ profili utenti
 8 ✅ footer
