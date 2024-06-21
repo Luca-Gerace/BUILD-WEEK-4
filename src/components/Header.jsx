@@ -67,7 +67,7 @@ export default function Header({ user }) {
           <div>
             <Menu>
               <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
-                <img src={user.image} alt="img-user" className='rounded-full w-[30px]' />
+                <img src={user.image} alt="img-user" className='rounded-full w-[30px] h-[30px]' />
                 <div className='flex gap-1'>
                   <span className='hidden md:inline'>Me</span>
                   <ChevronDownIcon className='hidden md:inline md:w-[20px]' />

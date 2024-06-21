@@ -10,26 +10,13 @@ import {
   import { useState } from "react";
   import axios from "../modules/ApiAxios";
   
-  export default function ModalProfile({setUser, user, open, handleOpen }) {
+  export default function ModalProfile({ user, setUser, open, handleOpen }) {
   
     // Hooks
     const [inputName, setInputName] = useState('')
     const [inputSurname, setInputSurname] = useState('')
     const [inputTitle, setInputTitle] = useState('')
-    const [inputArea, setInputArea] = useState('')
-    
-    // useEffect(() => {
-    //   const newExperience = {
-    //     role: inputRole,
-    //     company: inputCompany,
-    //     startDate: inputStartDate,
-    //     endDate: inputEndDate, //null se ancora in corso
-    //     description: inputDescription,
-    //     area: inputArea,
-    //   }
-  
-    // }, [newExperience]) 
-  
+    const [inputArea, setInputArea] = useState('') 
   
     const handleCreate = () => {
       const updatedUser = {
@@ -48,6 +35,7 @@ import {
       axios.get()
         .then(response => {
           return axios.put('', updatedUser);
+          
         })
         .then(response => {
           setUser(response.data);
@@ -62,7 +50,7 @@ import {
       <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
         <DialogHeader className="justify-between">
           <Typography color="blue-gray" className="mb-1 font-bold">
-            Aggiungi esperienza
+            Modifica profilo
           </Typography>
           <IconButton
             color="gray"
@@ -86,15 +74,15 @@ import {
             </svg>
           </IconButton>
         </DialogHeader>
-        <DialogBody className="overflow-y-scroll flex flex-col gap-5">
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-          <div className="mb-1 flex flex-col gap-6">
+        <DialogBody className="overflow-y-scroll flex flex-col gap-3  pt-0">
+        <form>
+          <div className="mb-1 flex flex-col gap-3">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Name
+              Nome
             </Typography>
             <Input
               size="lg"
-              placeholder="name@mail.com"
+              placeholder="Nome"
               value={inputName}
               onChange={(e) => setInputName(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -103,11 +91,11 @@ import {
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Surname
+              Cognome
             </Typography>
             <Input
               size="lg"
-              placeholder="name@mail.com"
+              placeholder="Cognome"
               value={inputSurname}
               onChange={(e) => setInputSurname(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -116,12 +104,12 @@ import {
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Title
+              Posizione Lavorativa
             </Typography>
             <Input
               size="lg"
               type="text"
-              placeholder="name@mail.com"
+              placeholder="Posizione lavorativa"
               value={inputTitle}
               onChange={(e) => setInputTitle(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -130,12 +118,12 @@ import {
               }}
             /> 
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Area
+              Luogo
             </Typography>
             <Input
               size="lg"
               type="text"
-              placeholder="name@mail.com"
+              placeholder="luogo"
               value={inputArea}
               onChange={(e) => setInputArea(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -145,7 +133,7 @@ import {
             />                                         
           </div>
           <Button onClick={handleCreate} className="mt-6" fullWidth>
-            sign up
+            Conferma
           </Button>
         </form>
         </DialogBody>

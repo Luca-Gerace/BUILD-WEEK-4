@@ -55,10 +55,10 @@ Modello esperienza:
 
 - creare componenti:
 1 ✅ header
-2 ❌ blocco profilo personale (GET)
-3 ❌ lista esperienze (GET)
-4 ❌ esperienza singola
-5 ❌ Modale per aggiunta/modifica esperienza (POST/PUT)
+2 ✅ blocco profilo personale (GET/PUT)
+3 ✅ lista esperienze
+4 ❌ esperienza singola (✅GET/✅POST/PUT/DELETE)
+5 ❌ Modale per aggiunta/modifica esperienza
 6 ✅ sidebar con profili utenti (GET)
 7 ✅ profili utenti
 8 ✅ footer

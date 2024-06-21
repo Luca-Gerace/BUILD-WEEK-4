@@ -13,28 +13,16 @@ import axios from "../modules/ApiAxios";
 export default function AddingExperienceModal({ setExperiences, experiences, add, setAdd, user, open, handleOpen }) {
 
   // Hooks
-  const [inputRole, setInputRole] = useState('')
-  const [inputCompany, setInputCompany] = useState('')
-  const [inputStartDate, setInputStartDate] = useState('')
-  const [inputEndDate, setInputEndDate] = useState('')
-  const [inputDescription, setInputDescription] = useState('')
-  const [inputArea, setInputArea] = useState('')
-  
-  // useEffect(() => {
-  //   const newExperience = {
-  //     role: inputRole,
-  //     company: inputCompany,
-  //     startDate: inputStartDate,
-  //     endDate: inputEndDate, //null se ancora in corso
-  //     description: inputDescription,
-  //     area: inputArea,
-  //   }
+  const [inputRole, setInputRole] = useState('');
+  const [inputCompany, setInputCompany] = useState('');
+  const [inputStartDate, setInputStartDate] = useState('');
+  const [inputEndDate, setInputEndDate] = useState('');
+  const [inputDescription, setInputDescription] = useState('');
+  const [inputArea, setInputArea] = useState('');
+  const [inputImage, setInputImage] = useState(null);
 
-  // }, [newExperience]) 
-
-
+  // Handler
   const handleCreate = () => {
-
     const newExperience = {
       role: inputRole,
       company: inputCompany,
@@ -44,15 +32,30 @@ export default function AddingExperienceModal({ setExperiences, experiences, add
       area: inputArea,
     }
 
-    // Chiamata POST
+    // Chiamata POST per creare la nuova esperienza
     axios.post(`${user._id}/experiences`, newExperience)
-    .then(response => {
-        setExperiences([...experiences, response.data]);
-        setAdd(!add)
-    })
-    .catch(error => console.error("Error adding experience:", error));
+      .then(response => {
+        const createdExperience = response.data;
+        setExperiences([...experiences, createdExperience]);
 
-    handleOpen(false);
+        // Se c'è un'immagine da caricare
+        if (inputImage) {
+          const formData = new FormData();
+          formData.append('experience', inputImage);
+
+          // Chiamata POST per caricare l'immagine
+          axios.post(`${user._id}/experiences/${createdExperience._id}/picture`, formData)
+            .then(response => {
+              // Aggiorna l'esperienza con l'immagine
+              setExperiences(experiences.map(exp => exp._id === createdExperience._id ? { ...createdExperience, picture: response.data.picture } : exp));
+            })
+            .catch(error => console.error("Error uploading image:", error));
+        }
+
+        setAdd(!add);
+        handleOpen(false);
+      })
+      .catch(error => console.error("Error adding experience:", error));
   }
 
   return (
@@ -83,94 +86,112 @@ export default function AddingExperienceModal({ setExperiences, experiences, add
           </svg>
         </IconButton>
       </DialogHeader>
-      <DialogBody className="overflow-y-scroll flex flex-col gap-5">
-      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-        <div className="mb-1 flex flex-col gap-6">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Ruolo
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="name@mail.com"
-            value={inputRole}
-            onChange={(e) => setInputRole(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Company
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="name@mail.com"
-            value={inputCompany}
-            onChange={(e) => setInputCompany(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Start date
-          </Typography>
-          <Input
-            size="lg"
-            type="date"
-            placeholder="name@mail.com"
-            value={inputStartDate}
-            onChange={(e) => setInputStartDate(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          /> 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            End date
-          </Typography>
-          <Input
-            size="lg"
-            type="date"
-            placeholder="name@mail.com"
-            value={inputEndDate}
-            onChange={(e) => setInputEndDate(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          /> 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Description
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="name@mail.com"
-            value={inputDescription}
-            onChange={(e) => setInputDescription(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />   
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Area
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="name@mail.com"
-            value={inputArea}
-            onChange={(e) => setInputArea(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />                                        
-        </div>
-        <Button onClick={handleCreate} className="mt-6" fullWidth>
-          sign up
-        </Button>
-      </form>
+      <DialogBody className="overflow-y-scroll flex flex-col pt-0">
+        <form className="mb-2">
+          <div className="flex flex-col gap-3">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Ruolo
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Ruolo"
+              value={inputRole}
+              onChange={(e) => setInputRole(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Company
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Company"
+              value={inputCompany}
+              onChange={(e) => setInputCompany(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <div className="flex gap-6">
+              <div className="flex flex-col w-full">
+                <Typography variant="h6" color="blue-gray">
+                  Start date
+                </Typography>
+                <Input
+                  size="lg"
+                  type="date"
+                  placeholder="Start date"
+                  value={inputStartDate}
+                  onChange={(e) => setInputStartDate(e.target.value)}
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                />
+              </div>
+              <div className="flex flex-col w-full">
+                <Typography variant="h6" color="blue-gray">
+                  End date
+                </Typography>
+                <Input
+                  size="lg"
+                  type="date"
+                  placeholder="End date"
+                  value={inputEndDate}
+                  onChange={(e) => setInputEndDate(e.target.value)}
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                />
+              </div>
+            </div>
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Description
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Description"
+              value={inputDescription}
+              onChange={(e) => setInputDescription(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Area
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Area"
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Immagine
+            </Typography>
+            <Input
+              size="lg"
+              type="file"
+              onChange={(e) => setInputImage(e.target.files[0])}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <Button onClick={handleCreate} className="mt-6" fullWidth>
+            Aggiungi esperienza
+          </Button>
+        </form>
       </DialogBody>
     </Dialog>
   );

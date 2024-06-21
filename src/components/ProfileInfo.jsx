@@ -8,7 +8,7 @@ export default function ProfileInfo({ user }) {
   const profileUrl = `/user/${user._id}`
 
   return (
-    <li className="mx-6 py-4 border-b last:border-b-0">
+    <li className="mx-6 py-4 border-b-2 last:border-b-0">
         <Link to={profileUrl} className="flex items-start gap-3">
             <img src={user.image} alt="profile" className="rounded-full w-[50px] min-w-[50px] h-[50px]" />
             <div className="flex flex-col gap-3">
