@@ -20,47 +20,47 @@ export default function UpdateExperienceModal({ add, setAdd, user, setExperience
   const [inputImage, setInputImage] = useState(null);
 
   const handleUpdate = async () => {
-      const updatedExperience = {
-          role: inputRole,
-          company: inputCompany,
-          startDate: inputStartDate,
-          endDate: inputEndDate,
-          description: inputDescription,
-          area: inputArea,
-      };
+    const updatedExperience = {
+        role: inputRole,
+        company: inputCompany,
+        startDate: inputStartDate,
+        endDate: inputEndDate,
+        description: inputDescription,
+        area: inputArea,
+    };
 
-      try {
-          // Prima aggiorna l'esperienza senza l'immagine
-          const response = await axios.put(`${user._id}/experiences/${experience._id}`, updatedExperience);
-          const updatedExp = response.data;
+    try {
+        // Aggiorna l'esperienza senza l'immagine
+        const response = await axios.put(`${user._id}/experiences/${experience._id}`, updatedExperience);
+        let updatedExp = response.data;
 
-          // Se c'è un'immagine, aggiorna l'immagine separatamente
-          if (inputImage) {
-              const formData = new FormData();
-              formData.append("image", inputImage);
+        // Se c'è un'immagine, aggiorna l'immagine separatamente
+        if (inputImage) {
+            const formData = new FormData();
+            formData.append("experience", inputImage);
 
-              const imageResponse = await axios.put(
-                  `${user._id}/experiences/${experience._id}/picture`,
-                  formData,
-                  {
-                      headers: {
-                          "Content-Type": "multipart/form-data",
-                      },
-                  }
-              );
-              updatedExp.image = imageResponse.data.image;
-          }
+            const imageResponse = await axios.post(
+                `${user._id}/experiences/${experience._id}/picture`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            updatedExp = { ...updatedExp, image: imageResponse.data.image };
+        }
 
-          // Aggiorna lo stato delle esperienze
-          setExperiences((prevExperiences) => 
-              prevExperiences.map((exp) => exp._id === experience._id ? updatedExp : exp)
-          );
-          setAdd(!add)
-          handleOpen();
-      } catch (error) {
-          console.error("Errore durante l'aggiornamento dell'esperienza:", error);
-      }
-  };
+        // Aggiorna lo stato delle esperienze
+        setExperiences((prevExperiences) => 
+            prevExperiences.map((exp) => exp._id === experience._id ? updatedExp : exp)
+        );
+        setAdd(!add);
+        handleOpen();
+    } catch (error) {
+        console.error("Errore durante l'aggiornamento dell'esperienza:", error);
+    }
+};
 
   return (
       <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
