@@ -3,7 +3,7 @@ import { IconButton } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 import { useState } from 'react';
 import ModalProfile from './ModalProfile';
-import UpdateImageModal from './UpdateImageModal';  // Cambiato il nome del componente per chiarezza
+import UpdateImageModal from './UpdateImageModal';
 import { useParams } from 'react-router-dom';
 
 export default function Profile({ setUser, user }) {
