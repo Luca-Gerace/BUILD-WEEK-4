@@ -8,7 +8,7 @@ import {
     Input,
   } from "@material-tailwind/react";
   import { useState } from "react";
-  import axios from "../modules/ApiAxios";
+  import axios from "../../modules/ApiAxios";
   
   export default function ModalProfile({ user, setUser, open, handleOpen }) {
   

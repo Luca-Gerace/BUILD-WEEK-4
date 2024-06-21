@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
-import axios from '../modules/ApiAxios';
+import axios from '../../modules/ApiAxios';
 import AddExperience from './AddExperience';
 import SingleExperience from './SingleExperience';
 import { useParams } from 'react-router-dom';
@@ -19,7 +19,7 @@ export default function Experiences({ user }) {
       if (!user._id) return;
       try {
         const response = await axios.get(`${user._id}/experiences`);
-        setExperiences(response.data);
+        setExperiences(response.data.reverse());
 
       } catch (error) {
         console.error("Error fetching users:", error)

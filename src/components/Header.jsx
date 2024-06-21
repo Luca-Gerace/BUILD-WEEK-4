@@ -96,10 +96,12 @@ export default function Header({ user }) {
                         </span>
                       </div>
                     </div>
-                    <button 
-                      className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 font-semibold w-full border rounded-[20px] my-3 hover:border-[3px] hover:bg-blue-200">
-                      View Profile
-                    </button>
+                    <Link to='/'>
+                      <button 
+                        className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 w-full border rounded-[20px] my-3 hover:bg-blue-200">
+                        View Profile
+                      </button>
+                    </Link>
                   </div>
                   </MenuItem>
                   <MenuSeparator className="my-1 h-px bg-[#b1b1b1]" />

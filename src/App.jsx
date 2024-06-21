@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import UserPage from './pages/UserPage'
@@ -6,7 +5,7 @@ import Error from './pages/Error'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useEffect, useState } from 'react'
-import ApiAxios from './modules/ApiAxios'
+import axios from './modules/ApiAxios'
 
 export default function App() {
 
@@ -18,7 +17,7 @@ export default function App() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    ApiAxios.get(`${userId}`)
+    axios.get(`${userId}`)
         .then(response => setUser(response.data))
         .catch(error => console.error("Error fetching users:", error));
   }, [userId]);

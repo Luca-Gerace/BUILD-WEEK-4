@@ -1,4 +1,4 @@
-import axios from "../modules/ApiAxios";
+import axios from "../../modules/ApiAxios";
 import { useEffect, useState } from "react";
 import ProfileInfo from "./ProfileInfo";
 import ProfileInfoSkeleton from "./ProfileInfoSkeleton";

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../modules/ApiAxios";
-import Experiences from "../components/Experiences";
-import Profile from "../components/Profile";
-import Sidebar from "../components/Sidebar";
+import Experiences from "../components/Experiences/Experiences";
+import Profile from "../components/Profile/Profile";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 export default function UserPage() {
   // Hooks

@@ -42,7 +42,7 @@ export default function Profile({ setUser, user }) {
             <div className='bg-white px-4 h-[200px] rounded-b-lg'>
                 <div className='flex'>
                     <div className='mt-[55px] ms-[15px] me-[10px]'>
-                        <h1 className='text-2xl'>{user.name} {user.surname}</h1>
+                        <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
                         <h6 className='text-lg'>{user.title}</h6>
                         <div className='flex'>
                             <p className='opacity-45'>{user.area}<span className='mx-[5px]'>&bull;</span></p>
