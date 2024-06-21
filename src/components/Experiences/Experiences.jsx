@@ -41,7 +41,7 @@ export default function Experiences({ user }) {
                 }
             </div>
             {experiences.map((experience, index) => 
-            (<SingleExperience key={index} experience={experience} />))}
+            (<SingleExperience key={index} experience={experience} user={user} add={add} setAdd={setAdd} />))}
         </div>
     </div>
   )
