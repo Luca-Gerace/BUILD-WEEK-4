@@ -53,12 +53,14 @@ export default function AddExperienceModal({ setExperiences, experiences, add, s
                 exp._id === createdExperience._id ? { ...createdExperience, picture: response.data.picture } : exp
               );
               setExperiences(updatedExperiences);
+              setAdd(!add);
             })
             .catch(error => console.error("Error uploading image:", error));
+        } else {
+          setAdd(!add);
         }
   
         // Resetta lo stato per il prossimo aggiornamento
-        setAdd(!add);
         handleOpen(false);
       })
       .catch(error => console.error("Error adding experience:", error));
