@@ -192,7 +192,7 @@ export default function UpdateExperienceModal({ add, setAdd, user, setExperience
                           }}
                       />
                   </div>
-                  <Button onClick={handleUpdate} className='mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
+                  <Button onClick={handleUpdate} className='mt-8 md:mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
                     Aggiorna esperienza
                   </Button>
               </form>

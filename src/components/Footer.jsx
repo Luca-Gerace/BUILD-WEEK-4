@@ -51,7 +51,7 @@ export default function Footer() {
 
   return (
     <footer className="p-5">
-      <div className="w-full lg:w-[1024px] m-auto flex justify-between">
+      <div className="w-full lg:w-[1024px] m-auto flex flex-col md:flex-row justify-between">
         <div className="flex flex-col gap-2">
           {items1.map((item) => (
             <Link to={item.to} key={item.id}>

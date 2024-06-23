@@ -52,9 +52,9 @@ export default function Profile({ setUser, user }) {
                             !id &&
                             <div className='flex mt-[10px]'>
                                 <Button className='rounded-full me-[4px] p-[7px]' color="blue">Disponibile per</Button>
-                                <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi sezione del profilo</Button>
+                                <Button className='hidden md:inline rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi sezione del profilo</Button>
                                 <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Migliora profilo</Button>
-                                <Button className='rounded-full p-[7px]' variant='outlined'>Altro</Button>
+                                <Button className='hidden md:inline rounded-full p-[7px]' variant='outlined'>Altro</Button>
                             </div>
                         }
                     </div>

@@ -36,24 +36,24 @@ export default function Header({ user }) {
 
   return (
     <nav className="px-5 py-4 bg-white h-full">
-      <div className="flex justify-between w-full lg:w-[1024px] m-auto">
+      <div className="flex justify-between w-full lg:w-[1024px] m-auto items-center">
         {/* LOGO & SEARCHBAR */}
         <div className='flex items-center gap-2'>
           <img src={LinkedinLogo} alt="logo" className='w-[41px]' />
-          <div className='flex w-[100px] md:w-[225px] lg:w-[325px] h-[40px] rounded-md bg-[#EDF3F8]'>
+          <div className='flex w-[225px] lg:w-[325px] h-[40px] rounded-md bg-[#EDF3F8]'>
             <MagnifyingGlassIcon className='w-[25px] mx-3' />
             <input type="text" placeholder='Search' className='bg-transparent outline-none' />
           </div>
         </div>
         {/* FINE LOGO & SEARCHBAR */}
         {/* ICONE & PROFILE DROPDOWN */}
-        <div className='flex items-center'>
+        <div className='items-center'>
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
               <Link to={item.to} key={item.id}>
                 <div
-                  className={`text-[#666666] hover:text-black mx-1 md:mx-0 cursor-pointer flex flex-col items-center md:w-[90px] lg:w-[100px] ${activeItem === item.id ? 'text-black border-b-2 border-black' : ''}`}
+                  className={`text-[#666666] hover:text-black mx-1 md:mx-0 cursor-pointer hidden md:flex flex-col items-center md:w-[90px] lg:w-[100px] ${activeItem === item.id ? 'text-black border-b-2 border-black' : ''}`}
                   onClick={() => handleClick(item.id)}
                 >
                   <Icon className='w-[30px]' />
@@ -84,25 +84,25 @@ export default function Header({ user }) {
               >
                 <MenuItems anchor='bottom' className='border p-3 bg-white'>
                   <MenuItem as='div' className='w-[250px]'>
-                  <div className='flex flex-col me-3'>
-                      <div className='flex items-center gap-2'>
-                      <img src={user.image} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
-                      <div className='flex flex-col'>
-                        <span className='font-bold text-[20px]'>
-                          {user.name} {user.surname}
-                        </span>
-                        <span>
-                          {user.title}
-                        </span>
+                    <div className='flex flex-col me-3'>
+                        <div className='flex items-center gap-2'>
+                        <img src={user.image} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
+                        <div className='flex flex-col'>
+                          <span className='font-bold text-[20px]'>
+                            {user.name} {user.surname}
+                          </span>
+                          <span>
+                            {user.title}
+                          </span>
+                        </div>
                       </div>
+                      <Link to='/'>
+                        <button 
+                          className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 w-full border rounded-[20px] my-3 hover:bg-blue-200">
+                          View Profile
+                        </button>
+                      </Link>
                     </div>
-                    <Link to='/'>
-                      <button 
-                        className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 w-full border rounded-[20px] my-3 hover:bg-blue-200">
-                        View Profile
-                      </button>
-                    </Link>
-                  </div>
                   </MenuItem>
                   <MenuSeparator className="my-1 h-px bg-[#b1b1b1]" />
                   <MenuItem as='div' className='w-[250px]'>
