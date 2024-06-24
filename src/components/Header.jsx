@@ -47,7 +47,7 @@ export default function Header({ user }) {
         </div>
         {/* FINE LOGO & SEARCHBAR */}
         {/* ICONE & PROFILE DROPDOWN */}
-        <div className='items-center'>
+        <div className='flex items-center'>
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
