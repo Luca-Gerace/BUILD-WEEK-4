@@ -34,19 +34,18 @@ const userSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true },
         age: { type: Number, required: true },
         currentPosition: { 
-            enum:['employed', 'unemployed'], 
+            type: String,
+            enum: ['employed', 'unemployed'], 
             default: 'unemployed', 
             required: true 
         },
-        age: { type: Number, required: true },
         avatar: { type: String },
         qualifications: [qualificationSchema],
-        qualifications: [experienceSchema]
+        experiences: [experienceSchema]
     },
     {
-        timestamp: true,
+        timestamps: true,
         collection: 'users'
     }
 );
-
 export default mongoose.model('Users', userSchema);
