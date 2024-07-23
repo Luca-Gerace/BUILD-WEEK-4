@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import { useEffect, useState } from 'react'
 import axios from './modules/ApiAxios'
+import Login from './pages/Login'
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
           <Routes>
               <Route path='/' element={<Home user={user} setUser={setUser} />}/>
               <Route path='/user/:id' element={<UserPage />}/>
+              <Route path='/login' element={<Login />}/>
               <Route path='*' element={<Error />}/>
           </Routes>
         </section>

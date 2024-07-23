@@ -20,7 +20,7 @@ passport.use(
                 let user = await User.findOne({ googleId: profile.id })
 
                 // Create new author if not exist yet
-                if (!author) {
+                if (!user) {
                     user = new User({
                         googleId: profile.id,
                         name: profile.name.givenName,
@@ -53,7 +53,7 @@ passport.serializeUser((user, done) => {
 // Deserialization - find user id from the session
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await Author.findById(id);
+        const user = await User.findById(id);
         // Pass user to passport middleware without error
         done(null, user);
     } catch (err) {
