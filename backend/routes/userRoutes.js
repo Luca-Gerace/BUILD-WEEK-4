@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/User.js';
+import upload from '../middlewares/upload.js';
 
 // inizializzo il router
 const router = express.Router();
@@ -28,6 +29,27 @@ router.get('/:id', async (req,res) => {
         res.status(500).json({message: err.message});
     }})
 
+
+// Put avatar user
+router.patch("/:id", upload.single("avatar"), async (req, res) => {
+    try{
+        // cerco a db lo user con id specifico (preso dal param)
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+
+        // in user data ho il body della request
+        const userData = req.body;
+
+        // se c'è il file nella request aggiorno user.avatar con il file
+        if (req.file) {
+            userData.avatar = `http://localhost:3001/uploads/${req.file.filename}`;
+        }
+
+        // ritorno nella response lo user aggiornato
+        res.status(201).json(updatedUser);
+    } catch(err) {
+        res.status(400).json({message: err.message});
+    }
+});
 
 //POST User
 router.post('/', async (req,res) => {

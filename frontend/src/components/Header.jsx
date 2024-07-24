@@ -1,14 +1,68 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import { HomeIcon, UsersIcon, BriefcaseIcon, ChatBubbleOvalLeftEllipsisIcon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import MagnifyingGlassIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon';
 import LinkedinLogo from '../assets/logo/LinkedIn_icon.svg';
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Transition } from '@headlessui/react';
 
-export default function Header({ user }) {
-  const [activeItem, setActiveItem] = useState(null);
+import { Link, useNavigate } from "react-router-dom";
+import { getUserData } from "../services/api";
+import { useState, useEffect } from "react";
 
+
+export default function Header() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        try {
+          const userData = await getUserData();
+          setUser(userData); // if token is valid, set user data
+          setIsLoggedIn(true);
+        } catch (err) {
+          console.error('Token not valid', err);
+          localStorage.removeItem('token');
+          setIsLoggedIn(false);
+          setUser(null);
+        }
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    };
+
+    checkLoginStatus();
+
+    const handleStorageChange = () => {
+      checkLoginStatus();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("loginStateChange", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("loginStateChange", handleStorageChange);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUser(null);
+    navigate("/");
+  };
+
+  // avatar fallback img
+  const fallbackAvatar = "https://res.cloudinary.com/dicfymkdl/image/upload/v1721642624/avatar_rsyffw.png";
   
+  const [activeItem, setActiveItem] = useState(null);
 
   const handleClick = (item) => {
     setActiveItem(item);
@@ -67,7 +121,7 @@ export default function Header({ user }) {
           <div>
             <Menu>
               <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
-                <img src={user.image} alt="img-user" className='rounded-full w-[30px] h-[30px]' />
+                {/* <img src={user.image} alt="img-user" className='rounded-full w-[30px] h-[30px]' /> */}
                 <div className='flex gap-1'>
                   <span className='hidden md:inline'>Me</span>
                   <ChevronDownIcon className='hidden md:inline md:w-[20px]' />
@@ -83,27 +137,47 @@ export default function Header({ user }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <MenuItems anchor='bottom' className='border p-3 bg-white'>
-                  <MenuItem as='div' className='w-[250px]'>
-                    <div className='flex flex-col me-3'>
-                        <div className='flex items-center gap-2'>
-                        <img src={user.image} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
-                        <div className='flex flex-col'>
-                          <span className='font-bold text-[20px]'>
-                            {user.name} {user.surname}
-                          </span>
-                          <span>
-                            {user.title}
-                          </span>
+                {isLoggedIn ? (
+                  <>
+                    {user ? (
+                      <MenuItem as='div' className='w-[250px]'>
+                        <div className='flex flex-col me-3'>
+                            <div className='flex items-center gap-2'>
+                            <img src={user.avatar ? user.avatar : fallbackAvatar} alt="img-user" className='w-[60px] h-[60px] rounded-full' />
+                            <div className='flex flex-col'>
+                              <span className='font-bold text-[20px]'>
+                                {user.name} {user.surname}
+                              </span>
+                              <a className="text-[12px] underline cursor-pointer" onClick={handleLogout}>Logout</a>
+                              <span>
+                                {user.title}
+                              </span>
+                            </div>
+                          </div>
+                          <Link to='/'>
+                            <button 
+                              className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 w-full border rounded-[20px] my-3 hover:bg-blue-200">
+                              View Profile
+                            </button>
+                          </Link>
                         </div>
-                      </div>
-                      <Link to='/'>
-                        <button 
-                          className="transition-all duration-100 ease-in-out text-blue-600 border-blue-600 w-full border rounded-[20px] my-3 hover:bg-blue-200">
-                          View Profile
-                        </button>
+                      </MenuItem>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/login" className="nav-link">
+                        Login
                       </Link>
-                    </div>
-                  </MenuItem>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/register" className="nav-link">
+                        Registrati
+                      </Link>
+                    </li>
+                  </>
+                )}
                   <MenuSeparator className="my-1 h-px bg-[#b1b1b1]" />
                   <MenuItem as='div' className='w-[250px]'>
                     <div className='flex flex-col'>

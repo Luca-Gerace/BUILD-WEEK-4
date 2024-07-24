@@ -5,7 +5,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 import passport from "../config/passportConfig.js";
 
 // const FRONTEND_URL = process.env.FRONTEND_URL || 'http:localhost:5173';
-const FRONTEND_URL = 'http:localhost:5173';
+const FRONTEND_URL = 'http://localhost:5173';
 
 const router = express.Router();
 
@@ -72,5 +72,24 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
         res.redirect(`${FRONTEND_URL}/login/error=auth_failed`);
     }
 });
+
+// TEST GET GOOGLE PT2
+// async function handleAuthCallback(req, res) {
+//     try {
+//       const token = await generateJWT({ id: req.user._id });
+//       res.redirect(`http://localhost:5173/login?token=${token}`);
+//     } catch (error) {
+//       console.error("Errore token");
+//       res.redirect("/login?error=auth_failed");
+//     }
+//   }
+
+
+// router.get(
+// "/github/callback",
+// passport.authenticate("github", { failureRedirect: "/login" }),
+// handleAuthCallback,
+// );
+
 
 export default router;
