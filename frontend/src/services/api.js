@@ -38,6 +38,12 @@ export const userLogin = async (credentials) => {
   }
 };
 
+// Get users
+export const getUsers = () => api.get("/users").then((response) => response.data);
+
+// Get single user
+export const getUser = (id) => api.get(`/users/${id}`).then((response) => response.data)
+
 // export const registerUser = (userData) => api.post("/authors", userData);
 export const getMe = () => api.get("/auth/me").then((response) => response.data);
 export const getUserData = async () => {

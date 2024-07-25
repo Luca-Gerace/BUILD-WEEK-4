@@ -1,8 +1,8 @@
-import axios from "../../modules/ApiAxios";
 import { useEffect, useState } from "react";
 import ProfileInfo from "./ProfileInfo";
 import ProfileInfoSkeleton from "./ProfileInfoSkeleton";
 import { useParams } from "react-router-dom";
+import { getUsers } from "../../services/api";
 
 export default function Sidebar() {
     // Hooks
@@ -11,16 +11,22 @@ export default function Sidebar() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        
-        setLoading(true);
+        const getUsersData = async () => {
+            
+            // carico lo skeleton
+            setLoading(true);
 
-        axios.get()
-            .then(response => {
-                const shuffledUsers = response.data.sort(() => Math.random() - 0.5); // randomize degli utenti
-                setUsers(shuffledUsers);
+            try {
+                const usersData = await getUsers();
+                setUsers(usersData);
                 setLoading(false);
-            })
-            .catch(error => console.error("Error fetching users:", error));
+            } catch (err) {
+                console.error('Utenti non trovati, riprova più tardi', err)
+            }
+        }
+
+        // richiamo la funzione al montaggio del componente
+        getUsersData()
     }, [id]);
 
     return (
@@ -34,7 +40,7 @@ export default function Sidebar() {
                         ))
                     ) : (
                         users.slice(0, 10).map(user => (
-                            user.name && user.surname && user.title && user.area && <ProfileInfo key={user._id} user={user} />
+                            <ProfileInfo key={user._id} user={user} />
                         ))
                     )}
                 </ul>

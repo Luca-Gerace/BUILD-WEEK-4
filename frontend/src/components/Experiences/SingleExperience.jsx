@@ -35,8 +35,8 @@ export default function SingleExperience({ experience, user, setExperiences, add
         <div className='flex gap-4'>
           <div className='w-12 h-12 rounded-full'>
             {
-              experience.image ? 
-              (<img className='w-12 h-12 rounded-full bg-[#dddddd90]' src={experience.image} alt={experience.company} />)
+              experience.logo ? 
+              (<img className='w-12 h-12 rounded-full bg-[#dddddd90]' src={experience.logo} alt={experience.company} />)
               :
               (
                 <div className='flex justify-center items-center w-12 h-12 rounded-full bg-[#dddddd90]'>

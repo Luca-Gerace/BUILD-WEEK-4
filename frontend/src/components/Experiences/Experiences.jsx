@@ -18,17 +18,26 @@ export default function Experiences() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      if (!user._id) return;
       try {
-        const response = await axios.get(`${user._id}/experiences`);
-        setExperiences(response.data.reverse());
-        setLoading(false);
+        
+        // se non abbiamo l'id preso da url param
+        // vuol dire che siamo in home - e vedo le mie esperienze
+        if (!id) {
+          // prendo le mie esperienze
+          setExperiences(user.experiences.reverse());
+          setLoading(false);
+        }
+        else {
+          const response = await axios.get(`${user._id}/experiences`);
+          setExperiences(response.data.reverse());
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     }
     fetchData();
-  }, [add, user._id]);
+  }, [id, user._id, user.experiences]);
 
   return (
     <div className='w-full px-6 py-4 bg-white rounded-lg'>
