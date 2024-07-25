@@ -19,14 +19,16 @@ export default function Header() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = localStorage.getItem('token');
-
+      console.log('Token:', token); // Aggiungi questo
+    
       if (token) {
         try {
           const userData = await getUserData();
-          setUser(userData); // if token is valid, set user data
+          console.log('User data received:', userData); // Aggiungi questo
+          setUser(userData);
           setIsLoggedIn(true);
         } catch (err) {
-          console.error('Token not valid', err);
+          console.error('Error fetching user data:', err); // Modifica questo
           localStorage.removeItem('token');
           setIsLoggedIn(false);
           setUser(null);
@@ -58,6 +60,12 @@ export default function Header() {
     setUser(null);
     navigate("/");
   };
+
+  useEffect(() => {
+    if (user) {
+      console.log('User data:', user);
+    }
+  }, [user]);
 
   // avatar fallback img
   const fallbackAvatar = "https://res.cloudinary.com/dicfymkdl/image/upload/v1721642624/avatar_rsyffw.png";

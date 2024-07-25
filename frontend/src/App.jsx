@@ -17,11 +17,11 @@ export default function App() {
   // Hooks
   const [user, setUser] = useState([]);
 
-  useEffect(() => {
-    axios.get(`${userId}`)
-        .then(response => setUser(response.data))
-        .catch(error => console.error("Error fetching users:", error));
-  }, [userId]);
+  // useEffect(() => {
+  //   axios.get(`${userId}`)
+  //       .then(response => setUser(response.data))
+  //       .catch(error => console.error("Error fetching users:", error));
+  // }, [userId]);
 
   return (
     <Router>

@@ -3,7 +3,7 @@ import axios from "axios";
 
 // API Base URL
 // const API_URL = "https://mern-blog-b8ed.onrender.com/api"
-const API_URL = "http://localhost:5173/api"
+const API_URL = "http://localhost:3001/api"
 
 const api = axios.create({
   baseURL: API_URL,
