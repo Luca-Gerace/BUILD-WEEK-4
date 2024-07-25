@@ -1,71 +1,23 @@
-// import { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { UserContext } from '../context/UserContext';
 import { HomeIcon, UsersIcon, BriefcaseIcon, ChatBubbleOvalLeftEllipsisIcon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 import MagnifyingGlassIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon';
 import LinkedinLogo from '../assets/logo/LinkedIn_icon.svg';
 import { Menu, MenuButton, MenuItem, MenuItems, MenuSeparator, Transition } from '@headlessui/react';
-
 import { Link, useNavigate } from "react-router-dom";
-import { getUserData } from "../services/api";
-import { useState, useEffect } from "react";
-
 
 export default function Header() {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  // utilizzo il contesto per ottenere lo stato di login e l'utente loggato
+  const { isLoggedIn, user, setIsLoggedIn, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      const token = localStorage.getItem('token');
-      console.log('Token:', token); // Aggiungi questo
-    
-      if (token) {
-        try {
-          const userData = await getUserData();
-          console.log('User data received:', userData); // Aggiungi questo
-          setUser(userData);
-          setIsLoggedIn(true);
-        } catch (err) {
-          console.error('Error fetching user data:', err); // Modifica questo
-          localStorage.removeItem('token');
-          setIsLoggedIn(false);
-          setUser(null);
-        }
-      } else {
-        setIsLoggedIn(false);
-        setUser(null);
-      }
-    };
-
-    checkLoginStatus();
-
-    const handleStorageChange = () => {
-      checkLoginStatus();
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("loginStateChange", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("loginStateChange", handleStorageChange);
-    };
-  }, []);
-
+  // funzione per effettuare il logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUser(null);
     navigate("/");
   };
-
-  useEffect(() => {
-    if (user) {
-      console.log('User data:', user);
-    }
-  }, [user]);
 
   // avatar fallback img
   const fallbackAvatar = "https://res.cloudinary.com/dicfymkdl/image/upload/v1721642624/avatar_rsyffw.png";
@@ -75,7 +27,6 @@ export default function Header() {
   const handleClick = (item) => {
     setActiveItem(item);
   };
-
 
   const navItems = [
     { id: 'home', icon: HomeIcon, label: 'Home', to: '/' },
