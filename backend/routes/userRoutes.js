@@ -115,26 +115,30 @@ router.get('/:id/experiences/:experienceId', async (req,res) => {
 
 
 //POST User Experience
-router.post('/:id/experiences', async (req,res) => {
+router.post('/:id/experiences', upload.single('logo'), async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).json({ message: "Post non trovato" });
-          }
-          const newExperience = {
-            company: req.body.company,
-            role: req.body.role,
-            description: req.body.description,
-            logo: req.body.logo,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate
-          };
-        user.experiences.push(newExperience);
-        await user.save();
-        res.status(201).json(newExperience);
-    } catch(err){
-        res.status(500).json({message: err.message});
-    }})
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User non trovato" });
+      }
+      const newExperience = {
+        company: req.body.company,
+        role: req.body.role,
+        description: req.body.description,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        area: req.body.area,
+      };
+      if (req.file) {
+        newExperience.logo = `http://localhost:3001/uploads/${req.file.filename}`;
+      }
+      user.experiences.push(newExperience);
+      await user.save();
+      res.status(201).json(newExperience);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+});
 
 //PATCH User Experiences 
 router.patch('/:id/experiences/:experienceId', async (req, res) => {

@@ -8,193 +8,211 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { useState, useContext } from "react";
-import axios from "../../modules/ApiAxios";
 import { UserContext } from '../../context/UserContext';
+import { postExperience } from "../../services/api";
 
 export default function AddExperienceModal({ setExperiences, experiences, add, setAdd, open, handleOpen }) {
   const { user } = useContext(UserContext);
-  const [inputRole, setInputRole] = useState('');
-const [inputCompany, setInputCompany] = useState('');
-const [inputStartDate, setInputStartDate] = useState('');
-const [inputEndDate, setInputEndDate] = useState('');
-const [inputDescription, setInputDescription] = useState('');
-const [inputArea, setInputArea] = useState('');
-const [inputImage, setInputImage] = useState(null);
+  const [newExperience, setNewExperience] = useState({
+    role: '',
+    company: '',
+    area: '',
+    logo: null,
+    description: '',
+    startDate: '',
+    endDate: '',
+  });
 
-// Handler
-const handleCreate = () => {
-  const newExperience = {
-    role: inputRole,
-    company: inputCompany,
-    startDate: inputStartDate,
-    endDate: inputEndDate,
-    description: inputDescription,
-    area: inputArea,
-  };
+  const handleCreate = async () => {
+    const formData = new FormData();
+    formData.append('role', newExperience.role);
+    formData.append('company', newExperience.company);
+    formData.append('area', newExperience.area);
+    formData.append('description', newExperience.description);
+    formData.append('startDate', newExperience.startDate);
+    formData.append('endDate', newExperience.endDate);
 
-  // Chiamata POST per creare la nuova esperienza
-  axios.post(`${user._id}/experiences`, newExperience)
-    .then(response => {
+    if (newExperience.logo) {
+      formData.append('logo', newExperience.logo);
+    }
+
+    try {
+      const response = await postExperience(user._id, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const createdExperience = response.data;
 
-      // Aggiorna lo stato delle esperienze con la nuova esperienza
       setExperiences([...experiences, createdExperience]);
+      setAdd(!add);
+      handleOpen(); // Chiudi il dialogo dopo aver creato l'esperienza
+    } catch (error) {
+      console.error("Errore durante la creazione dell'esperienza:", error);
+    }
+  };
 
-      // Se c'è un'immagine da caricare
-      if (inputImage) {
-        const formData = new FormData();
-        formData.append('experience', inputImage);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewExperience(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
-        // Chiamata POST per caricare l'immagine
-        axios.post(`${user._id}/experiences/${createdExperience._id}/picture`, formData)
-          .then(response => {
-            // Aggiorna l'esperienza con l'immagine nel modo corretto
-            const updatedExperiences = experiences.map(exp =>
-              exp._id === createdExperience._id ? { ...createdExperience, picture: response.data.picture } : exp
-            );
-            setExperiences(updatedExperiences);
-            setAdd(!add);
-          })
-          .catch(error => console.error("Error uploading image:", error));
-      } else {
-        setAdd(!add);
-      }
+  const handleFileChange = (e) => {
+    setNewExperience(prevState => ({
+      ...prevState,
+      logo: e.target.files[0]
+    }));
+  };
 
-      // Resetta lo stato per il prossimo aggiornamento
-      handleOpen(false);
-    })
-    .catch(error => console.error("Error adding experience:", error));
-};
-
-return (
-  <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
-    <DialogHeader className="justify-between">
-      <Typography color="blue-gray" className="mb-1 font-bold">
-        Aggiungi Esperienza
-      </Typography>
-      <IconButton
-        color="gray"
-        size="sm"
-        variant="text"
-        onClick={handleOpen}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          className="h-4 w-4"
+  return (
+    <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
+      <DialogHeader className="justify-between">
+        <Typography color="blue-gray" className="mb-1 font-bold">
+          Aggiungi Esperienza
+        </Typography>
+        <IconButton
+          color="gray"
+          size="sm"
+          variant="text"
+          onClick={handleOpen}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </IconButton>
-    </DialogHeader>
-    <DialogBody className="overflow-y-scroll flex flex-col gap-3 pt-0">
-      <form>
-        <div className="mb-1 flex flex-col gap-3">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Ruolo
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Ruolo"
-            value={inputRole}
-            onChange={(e) => setInputRole(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Azienda
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Azienda"
-            value={inputCompany}
-            onChange={(e) => setInputCompany(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Data di Inizio
-          </Typography>
-          <Input
-            size="lg"
-            type="date"
-            placeholder="Data di Inizio"
-            value={inputStartDate}
-            onChange={(e) => setInputStartDate(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Data di Fine
-          </Typography>
-          <Input
-            size="lg"
-            type="date"
-            placeholder="Data di Fine"
-            value={inputEndDate}
-            onChange={(e) => setInputEndDate(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Descrizione
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Descrizione"
-            value={inputDescription}
-            onChange={(e) => setInputDescription(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Area
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Area"
-            value={inputArea}
-            onChange={(e) => setInputArea(e.target.value)}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Immagine
-          </Typography>
-          <Input
-            size="lg"
-            type="file"
-            onChange={(e) => setInputImage(e.target.files[0])}
-            className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-        </div>
-        <Button onClick={handleCreate} className='mt-8 md:mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
-          Conferma
-        </Button>
-      </form>
-    </DialogBody>
-  </Dialog>
-);
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            className="h-4 w-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </IconButton>
+      </DialogHeader>
+      <DialogBody className="overflow-y-scroll flex flex-col gap-3 pt-0">
+        <form onSubmit={(e) => { e.preventDefault(); handleCreate(); handleOpen(); }}>
+          <div className="mb-1 flex flex-col gap-3">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Ruolo
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Ruolo"
+              name="role"
+              value={newExperience.role}
+              onChange={handleChange}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              required
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Azienda
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Azienda"
+              name="company"
+              value={newExperience.company}
+              onChange={handleChange}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              required
+            />
+            <div className="flex gap-3 mb-1">
+              <div className="flex flex-col gap-3">
+                <Typography variant="h6" color="blue-gray" className="-mb-3">
+                  Data di Inizio
+                </Typography>
+                <Input
+                  size="lg"
+                  type="date"
+                  placeholder="Data di Inizio"
+                  name="startDate"
+                  value={newExperience.startDate}
+                  onChange={handleChange}
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Typography variant="h6" color="blue-gray" className="-mb-3">
+                  Data di Fine
+                </Typography>
+                <Input
+                  size="lg"
+                  type="date"
+                  placeholder="Data di Fine"
+                  name="endDate"
+                  value={newExperience.endDate}
+                  onChange={handleChange}
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                />
+              </div>
+            </div>
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Descrizione
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Descrizione"
+              name="description"
+              value={newExperience.description}
+              onChange={handleChange}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              required
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Area
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Area"
+              name="area"
+              value={newExperience.area}
+              onChange={handleChange}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+              required
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Immagine
+            </Typography>
+            <Input
+              size="lg"
+              type="file"
+              onChange={handleFileChange}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <Button type="submit" className='mt-8 md:mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
+            Aggiungi esperienza
+          </Button>
+        </form>
+      </DialogBody>
+    </Dialog>
+  );
 }

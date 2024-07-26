@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-// Subschema
+// Subdocument - qualifiche
 const qualificationSchema = new mongoose.Schema(
     {
-      name: { type: String, required: true },
-      institute: { type: String, required: true },
+      name: { type: String },
+      institute: { type: String },
+      instituteLogo: { type: String },
     },
     {
       timestamps: true,
@@ -13,13 +14,14 @@ const qualificationSchema = new mongoose.Schema(
     },
 );
 
+// Subdocument - esperienze
 const experienceSchema = new mongoose.Schema(
     {
-        company: { type: String, required: true },
-        role: { type: String, required: true },
+        company: { type: String },
+        role: { type: String },
         description: { type: String },
         logo: { type: String },
-        startDate: { type: Date, required: true },
+        startDate: { type: Date },
         endDate: { type: Date },
     },
     {
@@ -28,6 +30,7 @@ const experienceSchema = new mongoose.Schema(
     }
 );
 
+// Collection User
 const userSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },

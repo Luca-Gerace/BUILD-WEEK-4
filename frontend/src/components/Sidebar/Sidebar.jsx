@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProfileInfo from "./ProfileInfo";
 import ProfileInfoSkeleton from "./ProfileInfoSkeleton";
 import { useParams } from "react-router-dom";
 import { getUsers } from "../../services/api";
+import { UserContext } from "../../context/UserContext";
 
 export default function Sidebar() {
     // Hooks
     const { id } = useParams(); // mi serve per aggiornare i componenti ProfileInfo in sidebar
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const { user } = useContext(UserContext);
+    const loggedUserEmail = user.email;
 
     useEffect(() => {
         const getUsersData = async () => {
@@ -39,8 +43,11 @@ export default function Sidebar() {
                             <ProfileInfoSkeleton key={index} />
                         ))
                     ) : (
-                        users.slice(0, 10).map(user => (
-                            <ProfileInfo key={user._id} user={user} />
+                        users
+                        .filter(user => user.email !== loggedUserEmail) // con filter rimuovo dalla stampa il profile info dell'utente loggato
+                        .slice(0, 10)
+                        .map(user => (
+                            user.email === <ProfileInfo key={user._id} user={user} />
                         ))
                     )}
                 </ul>

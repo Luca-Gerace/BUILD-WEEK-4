@@ -79,13 +79,22 @@ export default function Header() {
           {/* INIZIO PROFILE DROPDOWN */}
           <div>
             <Menu>
-              <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
-                {/* <img src={user.image} alt="img-user" className='rounded-full w-[30px] h-[30px]' /> */}
-                <div className='flex gap-1'>
-                  <span className='hidden md:inline'>Me</span>
-                  <ChevronDownIcon className='hidden md:inline md:w-[20px]' />
-                </div>
-              </MenuButton>
+              {user ? ( 
+                <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
+                  <img src={user.avatar ? user.avatar : fallbackAvatar} alt="img-user" className='rounded-full w-[30px] h-[30px]' />
+                  <div className='flex gap-1'>
+                    <span className='hidden md:inline'>{user.name}</span>
+                    <ChevronDownIcon className='hidden md:inline md:w-[20px]' />
+                  </div>
+                </MenuButton>
+                ) : (
+                  <MenuButton className='w-[30px] lg:w-[60px] ms-0 lg:ms-3 flex flex-col items-center text-[#666666] hover:text-black '>
+                      <Link to="/login" className="nav-link">
+                        Login
+                      </Link>
+                  </MenuButton>
+                )
+              }
 
               <Transition
                 enter="transition ease-out duration-75"

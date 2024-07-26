@@ -1,5 +1,5 @@
 import { BuildingOffice2Icon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import { useParams } from 'react-router-dom';
 import axios from "../../modules/ApiAxios";
 import UpdateExperienceModal from './UpdateExperienceModal';
@@ -14,7 +14,11 @@ export default function SingleExperience({ experience, user, setExperiences, add
 
   // Funzione per formattare la data
   const formatDateTime = (dateTimeString) => {
-    const formattedDate = format(new Date(dateTimeString), "yyyy/MM/dd");
+    const parsedDate = new Date(dateTimeString);
+    if (!isValid(parsedDate)) {
+      return 'Invalid date';
+    }
+    const formattedDate = format(parsedDate, "yyyy/MM/dd");
     return formattedDate;
   };
 
