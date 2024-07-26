@@ -18,7 +18,7 @@ export default function SingleExperience({ experience, user, setExperiences, add
     if (!isValid(parsedDate)) {
       return 'Invalid date';
     }
-    const formattedDate = format(parsedDate, "yyyy/MM/dd");
+    const formattedDate = format(parsedDate, "dd/MM/yyyy");
     return formattedDate;
   };
 
@@ -27,6 +27,7 @@ export default function SingleExperience({ experience, user, setExperiences, add
       .then(response => {
         console.log('Esperienza cancellata con successo:', response.data);
         setAdd(!add);
+        setExperiences(prevExperiences => prevExperiences.filter(exp => exp._id !== experience._id));
       })
       .catch(error => {
         console.error('Errore durante la cancellazione dell esperienza:', error);
@@ -37,7 +38,7 @@ export default function SingleExperience({ experience, user, setExperiences, add
     <>
       <div className='flex justify-between my-4 pt-2 pb-6 border-b-2 last:border-b-0 last:pb-0'>
         <div className='flex gap-4'>
-          <div className='w-12 h-12 rounded-full'>
+          <div className='rounded-full'>
             {
               experience.logo ? 
               (<img className='w-12 h-12 rounded-full bg-[#dddddd90]' src={experience.logo} alt={experience.company} />)

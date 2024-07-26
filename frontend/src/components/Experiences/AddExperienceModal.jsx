@@ -11,8 +11,10 @@ import { useState, useContext } from "react";
 import { UserContext } from '../../context/UserContext';
 import { postExperience } from "../../services/api";
 
-export default function AddExperienceModal({ setExperiences, experiences, add, setAdd, open, handleOpen }) {
+export default function AddExperienceModal({ setExperiences, add, setAdd, open, handleOpen }) {
+  
   const { user } = useContext(UserContext);
+  
   const [newExperience, setNewExperience] = useState({
     role: '',
     company: '',
@@ -31,11 +33,11 @@ export default function AddExperienceModal({ setExperiences, experiences, add, s
     formData.append('description', newExperience.description);
     formData.append('startDate', newExperience.startDate);
     formData.append('endDate', newExperience.endDate);
-
+  
     if (newExperience.logo) {
       formData.append('logo', newExperience.logo);
     }
-
+  
     try {
       const response = await postExperience(user._id, formData, {
         headers: {
@@ -43,10 +45,11 @@ export default function AddExperienceModal({ setExperiences, experiences, add, s
         },
       });
       const createdExperience = response.data;
-
-      setExperiences([...experiences, createdExperience]);
+  
+      setExperiences(prevExperiences => [...prevExperiences, createdExperience]);
       setAdd(!add);
       handleOpen(); // Chiudi la modale dopo aver creato l'esperienza
+      console.log('nuova esperienza:', createdExperience);
     } catch (error) {
       console.error("Errore durante la creazione dell'esperienza:", error);
     }
@@ -96,7 +99,7 @@ export default function AddExperienceModal({ setExperiences, experiences, add, s
         </IconButton>
       </DialogHeader>
       <DialogBody className="overflow-y-scroll flex flex-col gap-3 pt-0">
-        <form onSubmit={(e) => { e.preventDefault(); handleCreate(); handleOpen(); }}>
+        <form onSubmit={(e) => { e.preventDefault(); handleCreate(); handleOpen();}}>
           <div className="mb-1 flex flex-col gap-3">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Ruolo

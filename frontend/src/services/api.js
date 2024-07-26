@@ -45,8 +45,9 @@ export const getUsers = () => api.get("/users").then((response) => response.data
 export const getUser = (id) => api.get(`/users/${id}`).then((response) => response.data);
 
 // Post Experience
-export const postExperience = (id, experienceData) => 
-  api.post(`/users/${id}/experiences`, experienceData).then((response) => response.data);
+export const postExperience = (id, formData, config) => {
+  return api.post(`/users/${id}/experiences`, formData, config);
+};
 
 // Patch Experience
 export const patchExperience = (id, experienceId) => api.patch(`/users/${id}/experiences/${experienceId}`).then((response) => response.data);

@@ -31,8 +31,6 @@ const corsOptions = {
     origin: function(origin, callback) {
       const whiteList = [
         'http://localhost:5173', // development
-        // 'https://mern-blog-eight-pearl.vercel.app', // vercel
-        // 'https://mern-blog-b8ed.onrender.com' // render
       ];
   
       if (process.env.NODE_ENV === 'development') {
