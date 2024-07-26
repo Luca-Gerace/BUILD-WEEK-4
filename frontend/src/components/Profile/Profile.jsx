@@ -17,32 +17,14 @@ export default function Profile({ user, id }) {
   const handleOpenImageModal = () => setOpenImageModal((cur) => !cur);
 
   return (
-    <>
-     {
-      id ? (
-
-        <div className='w-full h-[350px]'>
-          <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
-            <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full'>
-              <img src={user.avatar || fallbackAvatar} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
-            </div>
-          </div>
-          <div className='bg-white px-4 h-[200px] rounded-b-lg'>
-              <div className='flex'>
-                  <div className='mt-[55px] ms-[15px] me-[10px]'>
-                      <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
-                      { user.experiences &&  <h6 className='text-lg'>{user.experiences[0].role} presso {user.experiences[0].company}</h6>}
-                  </div>
-              </div>
-          </div>
+    <div className='w-full h-[350px]'>
+      <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
+        <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full'>
+          <img src={user.avatar ? user.avatar : fallbackAvatar} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
         </div>
-
-      ) : (
-        <div className='w-full h-[350px]'>
-          <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
-            <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full'>
-              <img src={user.avatar} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
-            </div>
+        {
+          !id &&
+          <>
             <div className="absolute right-[25px] top-[25px] w-[40px] h-[40px] rounded-full border border-white bg-[white] flex items-center justify-center gap-4 ">
                 <IconButton className='rounded-full border-white' variant='outlined' onClick={handleOpenImageModal}>
                 <CameraIcon className='w-[30px] h-[30px]' style={{ fill: '#6B9DFF' }}/>
@@ -53,31 +35,37 @@ export default function Profile({ user, id }) {
                 <PencilIcon className='w-[30px] h-[30px]' />
                 </IconButton>                
             </div>
-          </div>
-          <div className='bg-white px-4 h-[200px] rounded-b-lg'>
-              <div className='flex'>
-                  <div className='mt-[55px] ms-[15px] me-[10px]'>
-                      <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
-                      <h6 className='text-lg'>{user.experiences[0].role} presso {user.experiences[0].company}</h6>
+          </>
+        }
+      </div>
+      <div className='bg-white px-4 h-[200px] rounded-b-lg'>
+          <div className='flex'>
+              <div className='mt-[55px] ms-[15px] me-[10px]'>
+                  <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
+                  { user.experiences && <h6 className='text-lg'>{user.experiences[0].role} presso {user.experiences[0].company}</h6>}
+                  {
+                    !id &&
+                    <>
                       <div className='flex'>
                           <a className='text-[#0d67bc] hover:text-[#0b5aa3]' href='*'>Informazioni di contatto</a>
                       </div>
-                      {
-                          !id &&
-                          <div className='flex mt-[10px]'>
-                              <Button className='rounded-full me-[4px] p-[7px]' color="blue">Disponibile per</Button>
-                              <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi esperienza</Button>
-                              <Button className='hidden md:inline rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi qualifica</Button>
-                          </div>
-                      }
-                  </div>
+                      <div className='flex mt-[10px]'>
+                          <Button className='rounded-full me-[4px] p-[7px]' color="blue">Disponibile per</Button>
+                          <Button className='rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi esperienza</Button>
+                          <Button className='hidden md:inline rounded-full me-[4px] p-[7px]' variant='outlined' color="blue">Aggiungi qualifica</Button>
+                      </div>
+                    </>
+                  }
               </div>
           </div>
+      </div>
+      {
+        !id &&
+        <>
           <UpdateProfileModal user={user} open={openProfileModal} handleOpen={handleOpenProfileModal} />
           <UpdateImageModal user={user} open={openImageModal} handleOpen={handleOpenImageModal} />
-        </div>
-      )
-    } 
-  </>
+        </>
+      }
+    </div>
   );
 }

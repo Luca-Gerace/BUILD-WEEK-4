@@ -14,7 +14,7 @@ export default function Home() {
         <>
           <div className="flex flex-col gap-6 w-full lg:w-2/3">
             <Profile user={user} />
-            <Experiences user={user} />
+            <Experiences user={user} experiences={user.experiences} />
           </div>
           <Sidebar />
         </>
