@@ -51,7 +51,7 @@ export default function Profile({ user, id }) {
                   <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
                   <h6 className='text-lg'>
                     {
-                      user.experiences.length > 0 
+                      user.experiences && user.experiences.length > 0 
                         ? `${user.experiences[0].role} presso ${user.experiences[0].company}` 
                         : user.currentPosition
                     }

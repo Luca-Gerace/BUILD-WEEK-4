@@ -45,9 +45,10 @@ export default function Sidebar() {
                     ) : (
                         users
                         .filter(user => user.email !== loggedUserEmail) // con filter rimuovo dalla stampa il profile info dell'utente loggato
+                        .filter(user => user._id !== id) // escludo l'utente con id uguale a id della pagina utente
                         .slice(0, 10)
                         .map(user => (
-                            user.email === <ProfileInfo key={user._id} user={user} />
+                            <ProfileInfo key={user._id} user={user} />
                         ))
                     )}
                 </ul>
