@@ -46,7 +46,7 @@ export default function AddExperienceModal({ setExperiences, experiences, add, s
 
       setExperiences([...experiences, createdExperience]);
       setAdd(!add);
-      handleOpen(); // Chiudi il dialogo dopo aver creato l'esperienza
+      handleOpen(); // Chiudi la modale dopo aver creato l'esperienza
     } catch (error) {
       console.error("Errore durante la creazione dell'esperienza:", error);
     }
