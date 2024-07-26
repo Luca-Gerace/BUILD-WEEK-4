@@ -8,17 +8,16 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import axios from "../../modules/ApiAxios";
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { updateProfileImage } from '../../services/api';
 
 export default function UpdateImageModal({ open, handleOpen }) {
   const { user, setUser } = useContext(UserContext);
 
-  // Hooks
   const [inputImage, setInputImage] = useState(null);
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!user._id) {
       console.error("User ID is missing");
       return;
@@ -26,18 +25,17 @@ export default function UpdateImageModal({ open, handleOpen }) {
 
     if (inputImage) {
       const formData = new FormData();
-      formData.append('profile', inputImage);
-      axios.post(`${user._id}/picture`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-        .then(response => {
-          setUser(response.data);
-          handleOpen();
-        })
+      formData.append('avatar', inputImage);
+      try {
+        const response = await updateProfileImage(user._id, formData);
+        setUser(response.data);
+        handleOpen();
+      } catch (error) {
+        console.error('Errore durante l\'aggiornamento dell\'immagine del profilo:', error);
+      }
     }
-  }
+  };
+
   return (
     <Dialog className="p-4" size="md" open={open} handler={handleOpen}>
       <DialogHeader className="justify-between">
@@ -88,5 +86,5 @@ export default function UpdateImageModal({ open, handleOpen }) {
         </form>
       </DialogBody>
     </Dialog>
-  )
+  );
 }

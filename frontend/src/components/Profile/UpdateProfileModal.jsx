@@ -7,10 +7,9 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { useState } from "react";
-import axios from "../../modules/ApiAxios";
-import { useContext } from 'react';
+import { useState, useContext } from "react";
 import { UserContext } from '../../context/UserContext';
+import { updateUserProfile } from '../../services/api';
 
 export default function UpdateProfileModal({ open, handleOpen }) {
   const { user, setUser } = useContext(UserContext);
@@ -18,16 +17,11 @@ export default function UpdateProfileModal({ open, handleOpen }) {
   // Hooks
   const [inputName, setInputName] = useState(user.name || "");
   const [inputSurname, setInputSurname] = useState(user.surname || "");
-  const [inputTitle, setInputTitle] = useState(user.title || "");
-  const [inputArea, setInputArea] = useState(user.area || "");
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     const updatedUser = {
-      ...user,
       name: inputName,
       surname: inputSurname,
-      title: inputTitle,
-      area: inputArea
     };
 
     if (!user._id) {
@@ -35,18 +29,13 @@ export default function UpdateProfileModal({ open, handleOpen }) {
       return;
     }
 
-    axios.get()
-      // eslint-disable-next-line no-unused-vars
-      .then(response => {
-        return axios.put('', updatedUser);
-      })
-      .then(response => {
-        setUser(response.data);
-        handleOpen();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    try {
+      const response = await updateUserProfile(user._id, updatedUser);
+      setUser(response.data);
+      handleOpen();
+    } catch (error) {
+      console.error('Errore durante l\'aggiornamento del profilo:', error);
+    }
   };
 
   return (
@@ -77,68 +66,40 @@ export default function UpdateProfileModal({ open, handleOpen }) {
           </svg>
         </IconButton>
       </DialogHeader>
-      <DialogBody className="overflow-y-scroll flex flex-col gap-3  pt-0">
-      <form>
-        <div className="mb-1 flex flex-col gap-3">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Nome
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Nome"
-            value={inputName}
-            onChange={(e) => setInputName(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Cognome
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="Cognome"
-            value={inputSurname}
-            onChange={(e) => setInputSurname(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Posizione Lavorativa
-          </Typography>
-          <Input
-            size="lg"
-            type="text"
-            placeholder="Posizione lavorativa"
-            value={inputTitle}
-            onChange={(e) => setInputTitle(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Luogo
-          </Typography>
-          <Input
-            size="lg"
-            type="text"
-            placeholder="luogo"
-            value={inputArea}
-            onChange={(e) => setInputArea(e.target.value)}
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />                                         
-        </div>
-        <Button onClick={handleCreate} className='mt-8 md:mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
+      <DialogBody className="overflow-y-scroll flex flex-col gap-3 pt-0">
+        <form>
+          <div className="mb-1 flex flex-col gap-3">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Nome
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Nome"
+              value={inputName}
+              onChange={(e) => setInputName(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Cognome
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Cognome"
+              value={inputSurname}
+              onChange={(e) => setInputSurname(e.target.value)}
+              className="!border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <Button onClick={handleCreate} className='mt-8 md:mt-12 rounded-full py-[12px] px-[16px]' color="blue" fullWidth>
             Conferma
-        </Button>
-      </form>
+          </Button>
+        </form>
       </DialogBody>
     </Dialog>
   );

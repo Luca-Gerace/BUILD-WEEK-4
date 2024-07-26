@@ -30,24 +30,22 @@ router.get('/:id', async (req,res) => {
     }})
 
 
-// Put avatar user
-router.patch("/:id", upload.single("avatar"), async (req, res) => {
-    try{
-        // cerco a db lo user con id specifico (preso dal param)
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
-
-        // in user data ho il body della request
-        const userData = req.body;
-
-        // se c'è il file nella request aggiorno user.avatar con il file
-        if (req.file) {
-            userData.avatar = `http://localhost:3001/uploads/${req.file.filename}`;
+// Patch avatar user
+router.patch("/:id/avatar", upload.single("avatar"), async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'Utente non trovato' });
         }
 
-        // ritorno nella response lo user aggiornato
-        res.status(201).json(updatedUser);
-    } catch(err) {
-        res.status(400).json({message: err.message});
+        if (req.file) {
+            user.avatar = `http://localhost:3001/uploads/${req.file.filename}`;
+        }
+
+        await user.save();
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
 });
 
@@ -111,7 +109,7 @@ router.get('/:id/experiences/:experienceId', async (req,res) => {
         res.json(experience);
     } catch(err){
         res.status(500).json({message: err.message});
-    }})
+}})
 
 
 //POST User Experience
@@ -165,6 +163,33 @@ router.patch('/:id/experiences/:experienceId', async (req, res) => {
     }
 });
 
+// PATCH expereince logo
+router.patch("/:id/experiences/:experienceId/logo", upload.single("logo"), async (req, res) => {
+    try {
+        console.log('req.params:', req.params);
+        console.log('req.file:', req.file);
+
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'Utente non trovato' });
+        }
+
+        const experience = user.experiences.id(req.params.experienceId);
+        if (!experience) {
+            return res.status(404).json({ message: "Esperienza non trovata" });
+        }
+        if (req.file) {
+            experience.logo = `http://localhost:3001/uploads/${req.file.filename}`;
+        }
+
+        await user.save();
+        res.status(200).json(user);
+    } catch (err) {
+        console.error('Errore durante l\'aggiornamento del logo dell\'esperienza:', err);
+        res.status(400).json({ message: err.message });
+    }
+});
+
 //DELETE USER EXPERIENCE
 router.delete("/:id/experiences/:experienceId", async (req, res) => {
     try {
@@ -173,10 +198,10 @@ router.delete("/:id/experiences/:experienceId", async (req, res) => {
         return res.status(404).json({ message: "User non trovato" });
       }
       
-      // Usa il metodo pull per rimuovere il commento dall'array
+      // Usa il metodo pull per rimuovere l'esperienza dall'array
       user.experiences.pull({ _id: req.params.experienceId });
       
-      // Salva il post aggiornato
+      // Salva l'utente aggiornato
       await user.save();
       
       res.json({ message: "Esperienza eliminata con successo" });

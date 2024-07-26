@@ -1,9 +1,9 @@
 import { BuildingOffice2Icon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { format, isValid } from 'date-fns';
 import { useParams } from 'react-router-dom';
-import axios from "../../modules/ApiAxios";
 import UpdateExperienceModal from './UpdateExperienceModal';
 import { useState } from 'react';
+import { deleteUserExperience } from '../../services/api';
 
 export default function SingleExperience({ experience, user, setExperiences, add, setAdd }) {
   const { id } = useParams(); // se id è true ci troviamo nella pagina profilo di altri utenti e non renderizziamo i bottoni per la modifica
@@ -22,16 +22,15 @@ export default function SingleExperience({ experience, user, setExperiences, add
     return formattedDate;
   };
 
-  const deleteExperience = () => {
-    axios.delete(`${user._id}/experiences/${experience._id}`)
-      .then(response => {
-        console.log('Esperienza cancellata con successo:', response.data);
-        setAdd(!add);
-        setExperiences(prevExperiences => prevExperiences.filter(exp => exp._id !== experience._id));
-      })
-      .catch(error => {
-        console.error('Errore durante la cancellazione dell esperienza:', error);
-      });
+  // funzione per cancellare esperienza
+  const deleteExperience = async () => {
+    try {
+      await deleteUserExperience(user._id, experience._id);
+      setAdd(!add);
+      setExperiences(prevExperiences => prevExperiences.filter(exp => exp._id !== experience._id));
+    } catch (error) {
+      console.error('Errore durante la cancellazione dell\'esperienza:', error);
+    }
   };
 
   return (

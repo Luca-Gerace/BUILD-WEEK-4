@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SingleExperience from './SingleExperience';
 import SingleExperienceSkeleton from './SingleExperienceSkeleton';
 
-export default function Experiences({ experiences, setExperiences, loading }) {
+export default function Experiences({ user, experiences, setExperiences, loading }) {
   const [add, setAdd] = useState(false);
 
   return (
@@ -19,6 +19,7 @@ export default function Experiences({ experiences, setExperiences, loading }) {
           experiences.map((experience, index) => (
             <SingleExperience
               key={index}
+              user={user}
               experience={experience}
               add={add}
               setAdd={setAdd}

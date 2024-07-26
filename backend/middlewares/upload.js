@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
     // cb -> callback
-    // null -> primo argomento, indica che non c'è stato aclun errore
+    // null -> primo argomento, indica che non c'è stato alcun errore
     // "uploads/" -> cartella di destinazione dei file
   },
   // Definisce il nome del file una volta caricato
