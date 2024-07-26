@@ -1,14 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../context/UserContext';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import axios from '../../modules/ApiAxios';
 import AddExperience from './AddExperience';
 import SingleExperience from './SingleExperience';
 import SingleExperienceSkeleton from './SingleExperienceSkeleton';
 
-export default function Experiences() {
-  const { user } = useContext(UserContext);
-  const { id } = useParams(); // se id è true ci troviamo nella pagina profilo di altri utenti e non renderizziamo i bottoni per la modifica
+export default function Experiences({ user, id }) {
 
   // Hooks
   const [experiences, setExperiences] = useState([]);

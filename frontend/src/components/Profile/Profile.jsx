@@ -1,43 +1,10 @@
-import { useContext, useEffect } from 'react';
-import { UserContext } from '../../context/UserContext';
 import { CameraIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { Button, IconButton } from "@material-tailwind/react";
 import { useState } from 'react';
 import UpdateProfileModal from './UpdateProfileModal';
 import UpdateImageModal from './UpdateImageModal';
-import { useParams } from 'react-router-dom';
-import { getUser } from '../../services/api';
 
-export default function Profile() {
-
-  // Hooks di controllo del contesto dell'utente
-  const { user, setUser } = useContext(UserContext);
-  const { id } = useParams(); // se id è true ci troviamo nella pagina profilo di altri utenti e non renderizziamo i bottoni per la modifica
-
-  const [ otherUser, setOtherUser ] = useState({});
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-
-      try {
-
-        if (id) {
-          // prendo le mie esperienze
-          const response = await getUser(id);
-
-          setOtherUser(response);
-
-          console.log('other user', otherUser);
-
-        }
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    }
-    fetchUserData();
-  }, [id, otherUser]);
-
-
+export default function Profile({ user, id }) {
   // avatar fallback img
   const fallbackAvatar = "https://res.cloudinary.com/dicfymkdl/image/upload/v1721642624/avatar_rsyffw.png";
 
@@ -57,14 +24,14 @@ export default function Profile() {
         <div className='w-full h-[350px]'>
           <div className='relative h-[150px] bg-[#0d67bc] rounded-t-lg'>
             <div className='absolute border-4 top-[50px] left-[25px] border-white rounded-full'>
-              <img src={otherUser.avatar || fallbackAvatar} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
+              <img src={user.avatar || fallbackAvatar} alt="image-user" className="rounded-full w-[125px] h-[125px]" />
             </div>
           </div>
           <div className='bg-white px-4 h-[200px] rounded-b-lg'>
               <div className='flex'>
                   <div className='mt-[55px] ms-[15px] me-[10px]'>
-                      <h1 className='text-2xl font-bold'>{otherUser.name} {otherUser.surname}</h1>
-                      { otherUser.experiences &&  <h6 className='text-lg'>{otherUser.experiences[0].role} presso {otherUser.experiences[0].company}</h6>}
+                      <h1 className='text-2xl font-bold'>{user.name} {user.surname}</h1>
+                      { user.experiences &&  <h6 className='text-lg'>{user.experiences[0].role} presso {user.experiences[0].company}</h6>}
                   </div>
               </div>
           </div>
@@ -106,8 +73,8 @@ export default function Profile() {
                   </div>
               </div>
           </div>
-          <UpdateProfileModal user={user} setUser={setUser} open={openProfileModal} handleOpen={handleOpenProfileModal} />
-          <UpdateImageModal user={user} setUser={setUser} open={openImageModal} handleOpen={handleOpenImageModal} />
+          <UpdateProfileModal user={user} open={openProfileModal} handleOpen={handleOpenProfileModal} />
+          <UpdateImageModal user={user} open={openImageModal} handleOpen={handleOpenImageModal} />
         </div>
       )
     } 

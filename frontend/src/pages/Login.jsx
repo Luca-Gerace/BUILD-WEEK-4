@@ -34,12 +34,10 @@ export default function Login() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = localStorage.getItem("token");
-      console.log("Token:", token); // Aggiungi questo log
 
       if (token) {
         try {
           const userData = await getUserData();
-          console.log("User data received:", userData); // Aggiungi questo log
           setUser(userData);
           setIsLoggedIn(true);
         } catch (err) {

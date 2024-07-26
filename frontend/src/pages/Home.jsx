@@ -5,15 +5,16 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Experiences from "../components/Experiences/Experiences";
 
 export default function Home() {
-  const { isLoggedIn } = useContext(UserContext);
+
+  const { isLoggedIn, user } = useContext(UserContext);
 
   return (
     <div className="flex flex-col w-full lg:flex-row lg:justify-center gap-6">
       {isLoggedIn ? (
         <>
           <div className="flex flex-col gap-6 w-full lg:w-2/3">
-            <Profile />
-            <Experiences />
+            <Profile user={user} />
+            <Experiences user={user} />
           </div>
           <Sidebar />
         </>
