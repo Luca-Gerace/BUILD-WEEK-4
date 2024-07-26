@@ -13,8 +13,10 @@ import { postExperience } from "../../services/api";
 
 export default function AddExperienceModal({ setExperiences, add, setAdd, open, handleOpen }) {
   
+  // prendo user dal contesto
   const { user } = useContext(UserContext);
   
+  // hook per gestire la nuova esperienza
   const [newExperience, setNewExperience] = useState({
     role: '',
     company: '',
@@ -25,7 +27,10 @@ export default function AddExperienceModal({ setExperiences, add, setAdd, open, 
     endDate: '',
   });
 
+  // funzione di create experience
   const handleCreate = async () => {
+
+    // tutti i dati necessari
     const formData = new FormData();
     formData.append('role', newExperience.role);
     formData.append('company', newExperience.company);
@@ -39,22 +44,27 @@ export default function AddExperienceModal({ setExperiences, add, setAdd, open, 
     }
   
     try {
+      // chiamata in post
       const response = await postExperience(user._id, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      // assegno la response ad una variabile
       const createdExperience = response.data;
   
+      // aggiungo all'arry dell'esperienze la nuova esperienza
       setExperiences(prevExperiences => [...prevExperiences, createdExperience]);
-      setAdd(!add);
+      setAdd(!add); // mi serve per refreshare il componente padre
       handleOpen(); // Chiudi la modale dopo aver creato l'esperienza
-      console.log('nuova esperienza:', createdExperience);
+
     } catch (error) {
       console.error("Errore durante la creazione dell'esperienza:", error);
     }
   };
 
+  // per gestire i cambi dei value negli input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewExperience(prevState => ({
@@ -63,6 +73,7 @@ export default function AddExperienceModal({ setExperiences, add, setAdd, open, 
     }));
   };
 
+  // per gestire i cambi dei value nell'input file
   const handleFileChange = (e) => {
     setNewExperience(prevState => ({
       ...prevState,

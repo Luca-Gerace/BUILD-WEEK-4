@@ -3,6 +3,8 @@ import SingleExperience from './SingleExperience';
 import SingleExperienceSkeleton from './SingleExperienceSkeleton';
 
 export default function Experiences({ user, experiences, setExperiences, loading }) {
+
+  // la passo al figlio per aggiornare il padre quando modifichiamo/aggiungiamo/cancelliamo un'esperienza
   const [add, setAdd] = useState(false);
 
   return (
